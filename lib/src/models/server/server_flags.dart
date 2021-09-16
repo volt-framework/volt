@@ -1,0 +1,1 @@
+// TODO: number 1: Official Revolt server, number 2: Verified community server

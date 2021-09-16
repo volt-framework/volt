@@ -1,0 +1,32 @@
+part of volt;
+
+class File {
+  final String id;
+  final FileTag tag;
+  final int size;
+  final String fileName;
+  final String contentsType;
+
+  File._new(RawApiMap raw)
+      : id = raw['_id'] as String,
+        tag = FileTag.from('tag'),
+        size = raw['size'] as int,
+        fileName = raw['filename'] as String,
+        contentsType = raw['content_type'] as String;
+
+  factory File._define(RawApiMap raw) {
+    // TODO: implement metadata classes
+    return File._new(raw);
+  }
+}
+
+class FileTag extends Enum<String> {
+  static const attachments = FileTag._create('atttachments');
+  static const avatars = FileTag._create('avatars');
+  static const backgrounds = FileTag._create('backgrounds');
+  static const banners = FileTag._create('banners');
+  static const icons = FileTag._create('icons');
+
+  FileTag.from(String value) : super(value);
+  const FileTag._create(String value) : super(value);
+}
