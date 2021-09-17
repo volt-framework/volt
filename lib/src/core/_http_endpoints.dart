@@ -8,54 +8,40 @@ abstract class _IHttpEndpoints {
 }
 
 class _HttpEndpoints extends _IHttpEndpoints {
-  final _HttpClient _rest = _HttpClient('api.revolt.chat');
+  final _HttpHandler _handler;
   final IVolt _client;
 
-  _HttpEndpoints(this._client);
+  _HttpEndpoints(this._client)
+      : _handler = _HttpHandler(_client, 'api.revolt.chat');
 
   @override
   Future<NodeInfo> queryNode() async {
-    final res = await _rest.get('/');
+    final res = await _handler.get('/');
     return NodeInfo._new(res.body);
   }
 
   @override
   Future<Message> sendMessage(Ulid id, MessageBuilder message) async {
-    // TODO: abstraction layer for preparing requests
-    final res = await _rest.post(
+    final res = await _handler.post(
       '/channels/${id.toString()}/messages',
-      body: jsonEncode(message.build()),
-      headers: {
-        'content-type': 'application/json',
-        'x-bot-token': _client._token
-      },
+      body: message.build(),
     );
     return Message._new(_client, res.body);
   }
 
   @override
   Future<T> fetchChannel<T extends Channel>(Ulid id) async {
-    final res = await _rest.get(
-      '/channels/${id.toString()}',
-      headers: {'x-bot-token': _client._token},
-    );
+    final res = await _handler.get('/channels/${id.toString()}');
     return Channel._define(_client, res.body) as T;
   }
 
   @override
   Future<void> joinVoiceChannel(Ulid channelId) {
-    return _rest.post(
-      '/channels/${channelId.toString()}/join_call',
-      headers: {'x-bot-token': _client._token},
-    );
+    return _handler.post('/channels/${channelId.toString()}/join_call');
   }
 
   Future<T> fetchUser<T extends User>(Ulid id) async {
-    final res = await _rest.get(
-      '/users/${id.toString()}',
-      headers: {'x-bot-token': _client._token},
-    );
-    print(id);
+    final res = await _handler.get('/users/${id.toString()}');
     return User._define(_client, res.body) as T;
   }
 }

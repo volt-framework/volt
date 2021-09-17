@@ -15,6 +15,8 @@ abstract class IVolt {
 }
 
 class VoltRest extends IVolt {
+  final _logger = Logger('Volt');
+
   @override
   final String _token;
 
@@ -31,6 +33,22 @@ class VoltRest extends IVolt {
       : channels = Cache<Ulid, Channel>(),
         users = Cache<Ulid, User>() {
     httpEndpoints = _HttpEndpoints(this);
+
+    // TODO: enabling/disabling logging in config
+    Logger.root.onRecord.listen((LogRecord rec) {
+      print(
+        "[${rec.time}] [${rec.level.name}] [${rec.loggerName}] ${rec.message}",
+      );
+    });
+
+    // TODO: enabling/disabling exceptions ignoring in config
+    Isolate.current.setErrorsFatal(false);
+    final port = ReceivePort();
+    port.listen((error) {
+      final trace = error[1] != null ? '. Stacktrace: \n${error[1]}' : '';
+      _logger.shout('Error: Message: [${error[0]}]$trace');
+    });
+    Isolate.current.addErrorListener(port.sendPort);
   }
 
   @override

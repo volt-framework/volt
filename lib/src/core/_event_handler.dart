@@ -2,6 +2,8 @@ part of volt;
 
 /// The early version of shard =)
 class _EventHandler implements Disposable {
+  static final Logger _logger = Logger('Events');
+
   final _WsClient _ws;
   final _EventController _controller;
 
@@ -44,7 +46,7 @@ class _EventHandler implements Disposable {
   }
 
   void _handle(dynamic data) {
-    print(data);
+    _logger.fine('Got event: $data');
     final raw = jsonDecode(data) as RawApiMap;
     _controller.onRawEvent.add(raw);
 
@@ -70,7 +72,7 @@ class _EventHandler implements Disposable {
         break;
 
       default:
-        print('RECEIVED UNKNOWN DATA: $raw');
+        _logger.info('Received unknown event: $raw');
     }
   }
 

@@ -2,16 +2,19 @@ library volt;
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:isolate';
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import 'package:logging/logging.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 part 'src/volt.dart';
 
 // Core
-part 'src/core/web/_rest_client.dart';
+part 'src/core/web/_http_client.dart';
 part 'src/core/web/_ws_client.dart';
+part 'src/core/web/_http_handler.dart';
 part 'src/core/_http_endpoints.dart';
 part 'src/core/_event_controller.dart';
 part 'src/core/_event_handler.dart';
