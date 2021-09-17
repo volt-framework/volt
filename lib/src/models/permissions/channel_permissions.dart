@@ -1,6 +1,7 @@
 part of volt;
 
-class ChannelPermissions extends Permissions {
+class ChannelPermissions extends Permissions
+    implements Convertable<ChannelPermissionsBuilder> {
   final bool viewChannel;
   final bool sendMessages;
   final bool manageMessages;
@@ -19,4 +20,7 @@ class ChannelPermissions extends Permissions {
         inviteOthers = FlagsUtils.isApplied(raw, 1 << 5),
         embedLinks = FlagsUtils.isApplied(raw, 1 << 6),
         uploadFiles = FlagsUtils.isApplied(raw, 1 << 7);
+
+  @override
+  ChannelPermissionsBuilder toBuilder() => ChannelPermissionsBuilder.from(this);
 }

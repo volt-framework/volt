@@ -60,11 +60,15 @@ part 'src/interfaces/builder.dart';
 part 'src/interfaces/cacheable.dart';
 part 'src/interfaces/sendible.dart';
 part 'src/interfaces/mentionable.dart';
+part 'src/interfaces/convertable.dart';
 part 'src/interfaces/enum.dart';
 
 // Utils
 part 'src/utils/builders/message_builder.dart';
 part 'src/utils/builders/fetch_messages_query_builder.dart';
 part 'src/utils/builders/search_messages_query_builder.dart';
+part 'src/utils/builders/user_permissions_builder.dart';
+part 'src/utils/builders/server_permissions_builder.dart';
+part 'src/utils/builders/channel_permissions_builder.dart';
 part 'src/utils/extensions/ulid_extension.dart';
 part 'src/utils/flags_utils.dart';

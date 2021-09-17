@@ -1,6 +1,7 @@
 part of volt;
 
-class UserPermissions extends Permissions {
+class UserPermissions extends Permissions
+    implements Convertable<UserPermissionsBuilder> {
   final bool access;
   final bool viewProfile;
   final bool sendMessages;
@@ -11,4 +12,7 @@ class UserPermissions extends Permissions {
         viewProfile = FlagsUtils.isApplied(raw, 1 << 1),
         sendMessages = FlagsUtils.isApplied(raw, 1 << 2),
         inviteUsers = FlagsUtils.isApplied(raw, 1 << 3);
+
+  @override
+  UserPermissionsBuilder toBuilder() => UserPermissionsBuilder.from(this);
 }

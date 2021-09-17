@@ -1,6 +1,7 @@
 part of volt;
 
-class ServerPermissions extends Permissions {
+class ServerPermissions extends Permissions
+    implements Convertable<ServerPermissionsBuilder> {
   final bool viewServer;
   final bool manageRoles;
   final bool manageChannels;
@@ -23,4 +24,7 @@ class ServerPermissions extends Permissions {
         manageNicknames = FlagsUtils.isApplied(raw, 1 << 13),
         changeAvatar = FlagsUtils.isApplied(raw, 1 << 14),
         manageAvatars = FlagsUtils.isApplied(raw, 1 << 15);
+
+  @override
+  ServerPermissionsBuilder toBuilder() => ServerPermissionsBuilder.from(this);
 }
