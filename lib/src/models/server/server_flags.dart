@@ -1,1 +1,10 @@
-// TODO: number 1: Official Revolt server, number 2: Verified community server
+part of volt;
+
+class ServerFlags {
+  final bool officialRevoltServer;
+  final bool verifiedCommunityServer;
+
+  ServerFlags._new(int raw)
+      : officialRevoltServer = FlagsUtils.isApplied(raw, 1 << 0),
+        verifiedCommunityServer = FlagsUtils.isApplied(raw, 1 << 1);
+}

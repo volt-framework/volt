@@ -32,6 +32,7 @@ part 'src/models/node_info.dart';
 part 'src/models/message.dart';
 part 'src/models/relationship.dart';
 part 'src/models/server/server.dart';
+part 'src/models/server/server_flags.dart';
 part 'src/models/cache/cacheable_channel.dart';
 part 'src/models/cache/cacheable_user.dart';
 part 'src/models/minimal/minimal_text_channel.dart';
@@ -46,6 +47,8 @@ part 'src/models/channel/text_channel.dart';
 part 'src/models/channel/undefined_channel.dart';
 part 'src/models/user/user.dart';
 part 'src/models/user/bot_user.dart';
+part 'src/models/user/user_flags.dart';
+part 'src/models/user/user_badges.dart';
 
 // Interfaces
 part 'src/interfaces/disposable.dart';
@@ -60,3 +63,4 @@ part 'src/utils/builders/message_builder.dart';
 part 'src/utils/builders/fetch_messages_query_builder.dart';
 part 'src/utils/builders/search_messages_query_builder.dart';
 part 'src/utils/extensions/ulid_extension.dart';
+part 'src/utils/flags_utils.dart';
