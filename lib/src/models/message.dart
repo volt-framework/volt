@@ -27,7 +27,7 @@ class Message extends UlidEntity {
         attachments = [
           if (raw['attachments'] != null)
             for (final attachment in raw['attachments'] as List<RawApiMap>)
-              File._define(attachment),
+              File._new(attachment),
         ],
         mentions = [
           if (raw['mentions'] != null)

@@ -6,18 +6,15 @@ class File {
   final int size;
   final String fileName;
   final String contentsType;
+  final Metadata metadata;
 
   File._new(RawApiMap raw)
       : id = raw['_id'] as String,
         tag = FileTag.from('tag'),
         size = raw['size'] as int,
         fileName = raw['filename'] as String,
-        contentsType = raw['content_type'] as String;
-
-  factory File._define(RawApiMap raw) {
-    // TODO: implement metadata classes
-    return File._new(raw);
-  }
+        contentsType = raw['content_type'] as String,
+        metadata = Metadata._define(raw['metadata']);
 }
 
 class FileTag extends Enum<String> {

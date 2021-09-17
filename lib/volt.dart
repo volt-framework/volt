@@ -42,6 +42,7 @@ part 'src/models/minimal/minimal_text_channel.dart';
 part 'src/models/minimal/minimal_voice_channel.dart';
 part 'src/models/minimal/minimal_user.dart';
 part 'src/models/file/file.dart';
+part 'src/models/file/file_metadata.dart';
 part 'src/models/permissions/permissions.dart';
 part 'src/models/permissions/channel_permissions.dart';
 part 'src/models/permissions/server_permissions.dart';

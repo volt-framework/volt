@@ -13,7 +13,7 @@ class User extends MinimalUser {
       : username = raw['username'] as String,
         avatar = raw['avatar'] == null
             ? null
-            : File._define(raw['avatar'] as RawApiMap),
+            : File._new(raw['avatar'] as RawApiMap),
         relations = [
           if (raw['relations'] != null)
             for (final rawRelation in raw['relations'] as List<RawApiMap>)
