@@ -10,6 +10,7 @@ abstract class IVolt {
   Cache<Ulid, User> get users;
 
   Future<NodeInfo> queryNodes();
+  Future<Server> fetchServer(Ulid id);
   Future<T> fetchChannel<T extends Channel>(Ulid id);
   Future<T> fetchUser<T extends User>(Ulid id);
 }
@@ -64,6 +65,11 @@ class VoltRest extends IVolt {
   @override
   Future<T> fetchUser<T extends User>(Ulid id) {
     return httpEndpoints.fetchUser(id);
+  }
+
+  @override
+  Future<Server> fetchServer(Ulid id) {
+    return httpEndpoints.fetchServer(id);
   }
 }
 

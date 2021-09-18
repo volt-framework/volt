@@ -5,6 +5,8 @@ abstract class _IHttpEndpoints {
   Future<Message> sendMessage(Ulid id, MessageBuilder message);
   Future<T> fetchChannel<T extends Channel>(Ulid id);
   Future<void> joinVoiceChannel(Ulid channelId);
+  Future<T> fetchUser<T extends User>(Ulid id);
+  Future<Server> fetchServer(Ulid id);
 }
 
 class _HttpEndpoints extends _IHttpEndpoints {
@@ -40,8 +42,15 @@ class _HttpEndpoints extends _IHttpEndpoints {
     return _handler.post('/channels/${channelId.toString()}/join_call');
   }
 
+  @override
   Future<T> fetchUser<T extends User>(Ulid id) async {
     final res = await _handler.get('/users/${id.toString()}');
     return User._define(_client, res.body) as T;
+  }
+
+  @override
+  Future<Server> fetchServer(Ulid id) async {
+    final res = await _handler.get('/servers/${id.toString()}');
+    return Server._new(_client, res.body);
   }
 }
