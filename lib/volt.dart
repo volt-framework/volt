@@ -51,6 +51,7 @@ part 'src/models/channel/channel.dart';
 part 'src/models/channel/server_channel.dart';
 part 'src/models/channel/server_text_channel.dart';
 part 'src/models/channel/dm_channel.dart';
+part 'src/models/channel/group.dart';
 part 'src/models/channel/voice_channel.dart';
 part 'src/models/channel/text_channel.dart';
 part 'src/models/channel/undefined_channel.dart';
