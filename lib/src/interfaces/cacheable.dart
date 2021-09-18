@@ -17,17 +17,3 @@ abstract class Cacheable<T extends Ulid, S extends UlidEntity> {
   @override
   bool operator ==(Object other) => other is Cacheable && other.id == id;
 }
-
-class _ChannelCacheable<T extends Channel> extends Cacheable<Ulid, T> {
-  _ChannelCacheable(IVolt client, Ulid id) : super._new(client, id);
-
-  @override
-  Future<T> download() {
-    return _client.httpEndpoints.fetchChannel<T>(id);
-  }
-
-  @override
-  T? getFromCache() {
-    return _client.channels[id] as T;
-  }
-}
