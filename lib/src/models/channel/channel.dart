@@ -31,11 +31,14 @@ class Channel extends UlidEntity {
     final type = raw['channel_type'] as String;
 
     switch (type) {
-      // TODO: implement DirectMessage and Group
       case 'TextChannel':
         return ServerTextChannel._new(client, raw);
       case 'VoiceChannel':
         return ServerVoiceChannel._new(client, raw);
+      case 'DirectMessage':
+        return DmChannel._new(client, raw);
+      case 'Group':
+        return Group._new(client, raw);
       default:
         return UndefinedChannel._new(client, raw);
     }
