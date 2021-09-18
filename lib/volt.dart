@@ -34,6 +34,7 @@ part 'src/events/channel_stop_typing.dart';
 part 'src/models/node_info.dart';
 part 'src/models/message.dart';
 part 'src/models/relationship.dart';
+part 'src/models/role.dart';
 part 'src/models/server/server.dart';
 part 'src/models/server/server_flags.dart';
 part 'src/models/cache/cacheable_channel.dart';
