@@ -55,22 +55,22 @@ class Server extends UlidEntity {
         name = raw['name'] as String,
         description = raw['description'] as String?,
         channels = [
-          for (final channelId in raw['channels'] as List<String>)
-            CacheableChannel<ServerChannel>._new(client, Ulid(channelId))
+          for (final channelId in raw['channels'] as List<dynamic>)
+            CacheableChannel<ServerChannel>._new(
+                client, Ulid(channelId as String))
         ],
         categories = [
-          for (final category
-              in (raw['categories'] as List<RawApiMap>? ?? <RawApiMap>[]))
-            ServerCategory._new(client, category)
+          for (final category in (raw['categories'] as List<dynamic>? ?? []))
+            ServerCategory._new(client, category as RawApiMap)
         ],
         systemMessages = SystemMessages._new(
             client, raw['system_messages'] as RawApiMap? ?? {}),
-        roles = (raw['roles'] as Map<String, RawApiMap>? ?? {})
-            .map((key, value) => MapEntry(key, Role._new(value))),
+        roles = (raw['roles'] as RawApiMap? ?? {})
+            .map((key, value) => MapEntry(key, Role._new(value as RawApiMap))),
         defaultServerPermissions = ServerPermissions._new(
-            (raw['default_permissions'] as List<int>)[0]),
+            (raw['default_permissions'] as List<dynamic>)[0] as int),
         defaultChannelPermissions = ChannelPermissions._new(
-            (raw['default_permissions'] as List<int>)[1]),
+            (raw['default_permissions'] as List<dynamic>)[1] as int),
         icon = raw['icon'] == null ? null : File._new(raw['icon'] as RawApiMap),
         banner =
             raw['banner'] == null ? null : File._new(raw['icon'] as RawApiMap),
