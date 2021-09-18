@@ -8,11 +8,11 @@ Future<void> main() async {
     print('Content: ${event.message.content}');
   });
 
-  // get channel mention
+  // ping-pong stuff
   bot.onMessageReceived
       .where((event) => event.message.content == '!ping')
       .listen((event) async {
-    await event.message.channel.sendMessage(
+    await event.message.reply(
       MessageBuilder.content('pong!'),
     );
   });
@@ -34,10 +34,9 @@ Future<void> main() async {
   bot.onMessageReceived
       .where((event) => event.message.content == '!user')
       .listen((event) async {
-    final channel = event.message.channel;
     final user = await bot.fetchUser(event.message.author.id);
 
-    await channel.sendMessage(
+    await event.message.reply(
       MessageBuilder.content('you are @${user.username} (${user.mention})'),
     );
   });
