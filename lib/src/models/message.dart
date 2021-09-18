@@ -16,6 +16,11 @@ class Message extends UlidEntity {
   // users
   final List<UlidEntity> mentions;
 
+  Future<Message> reply(MessageBuilder builder, {bool shouldMention = false}) {
+    builder._replies.add(MessageReplyBuilder(id, shouldMention));
+    return client.httpEndpoints.sendMessage(channel.id, builder);
+  }
+
   Message._new(this.client, RawApiMap raw)
       : channel = CacheableTextChannel._new(
           client,
