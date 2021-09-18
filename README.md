@@ -17,7 +17,7 @@ void main() {
 
   bot.onMessageReceived.listen((event) {
     if (event.message.content == '!ping') {
-      await event.message.channel.sendMessage(MessageBuilder.content('Pong!'));
+      await event.message.reply(MessageBuilder.content('Pong!'));
     }
   });
 }
