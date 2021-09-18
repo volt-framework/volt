@@ -1,16 +1,5 @@
 part of volt;
 
-/*
-{
-  "channel_type": "TextChannel",
-  "_id": "01FFD0K6658VPGKAB4MVE8NZZV",
-  "server": "01FFD0K665YX0RS2TKNGBF5K2G",
-  "nonce": "01FFD0HSXTXSMSJQJPQ669ZAKJ",
-  "name": "general",
-  "last_message": "01FFJ49MSAA5PYHER0QK8J2189",
-  "default_permissions": 251
-}
-*/
 class Channel extends UlidEntity {
   final ChannelType type;
   final IVolt client;
