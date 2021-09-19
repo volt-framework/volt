@@ -86,8 +86,13 @@ class _HttpHandler {
     );
   }
 
-  Future<HttpResponse> _handle(HttpResponse response) async {
+  Future<HttpResponse> _handle(http.Response response) async {
     _logger.fine('Got response: ${response.body}');
-    return response;
+    return HttpResponse._new(
+      response.body.isEmpty
+          ? null
+          : jsonDecode(utf8.decode(response.bodyBytes)),
+      statusCode: response.statusCode,
+    );
   }
 }

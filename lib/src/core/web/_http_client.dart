@@ -1,73 +1,37 @@
 part of volt;
 
-/// A wrapper around http package that automatically parses url and params, and decodes response.
+// TODO: does in really need? lmao
 class _HttpClient implements Disposable {
   final http.Client _innerClient;
 
   _HttpClient() : _innerClient = http.Client();
 
-  Future<HttpResponse> get(Uri url, {Map<String, String>? headers}) async {
-    final http.Response response =
-        await _innerClient.get(url, headers: headers);
-
-    return HttpResponse._new(
-      jsonDecode(utf8.decode(response.bodyBytes)),
-      statusCode: response.statusCode,
-    );
+  Future<http.Response> get(Uri url, {Map<String, String>? headers}) {
+    return _innerClient.get(url, headers: headers);
   }
 
-  Future<HttpResponse> post(Uri url,
-      {dynamic body, Map<String, String>? headers}) async {
-    final http.Response response =
-        await _innerClient.post(url, body: body, headers: headers);
-
-    return HttpResponse._new(
-      jsonDecode(utf8.decode(response.bodyBytes)),
-      statusCode: response.statusCode,
-    );
+  Future<http.Response> post(Uri url,
+      {dynamic body, Map<String, String>? headers}) {
+    return _innerClient.post(url, body: body, headers: headers);
   }
 
-  Future<HttpResponse> put(Uri url,
-      {dynamic body, Map<String, String>? headers}) async {
-    final http.Response response =
-        await _innerClient.put(url, body: body, headers: headers);
-
-    return HttpResponse._new(
-      jsonDecode(utf8.decode(response.bodyBytes)),
-      statusCode: response.statusCode,
-    );
+  Future<http.Response> put(Uri url,
+      {dynamic body, Map<String, String>? headers}) {
+    return _innerClient.put(url, body: body, headers: headers);
   }
 
-  Future<HttpResponse> patch(Uri url,
-      {dynamic body, Map<String, String>? headers}) async {
-    final http.Response response =
-        await _innerClient.patch(url, body: body, headers: headers);
-
-    return HttpResponse._new(
-      jsonDecode(utf8.decode(response.bodyBytes)),
-      statusCode: response.statusCode,
-    );
+  Future<http.Response> patch(Uri url,
+      {dynamic body, Map<String, String>? headers}) {
+    return _innerClient.patch(url, body: body, headers: headers);
   }
 
-  Future<HttpResponse> delete(Uri url,
-      {dynamic body, Map<String, String>? headers}) async {
-    final http.Response response =
-        await _innerClient.delete(url, body: body, headers: headers);
-
-    return HttpResponse._new(
-      jsonDecode(utf8.decode(response.bodyBytes)),
-      statusCode: response.statusCode,
-    );
+  Future<http.Response> delete(Uri url,
+      {dynamic body, Map<String, String>? headers}) {
+    return _innerClient.delete(url, body: body, headers: headers);
   }
 
-  Future<HttpResponse> head(Uri url, {Map<String, String>? headers}) async {
-    final http.Response response =
-        await _innerClient.head(url, headers: headers);
-
-    return HttpResponse._new(
-      jsonDecode(utf8.decode(response.bodyBytes)),
-      statusCode: response.statusCode,
-    );
+  Future<http.Response> head(Uri url, {Map<String, String>? headers}) {
+    return _innerClient.head(url, headers: headers);
   }
 
   @override
