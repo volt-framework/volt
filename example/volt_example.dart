@@ -25,7 +25,7 @@ Future<void> main() async {
       event.message.channel.id,
     );
 
-    await channel.sendMessage(MessageBuilder.content(
+    await event.message.reply(MessageBuilder.content(
       'the channel is ${channel.name} (${channel.mention})',
     ));
   });
