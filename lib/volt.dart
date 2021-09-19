@@ -60,6 +60,7 @@ part 'src/models/channel/text_channel.dart';
 part 'src/models/channel/undefined_channel.dart';
 part 'src/models/user/user.dart';
 part 'src/models/user/bot_user.dart';
+part 'src/models/user/user_profile.dart';
 part 'src/models/user/user_flags.dart';
 part 'src/models/user/user_badges.dart';
 
@@ -79,5 +80,6 @@ part 'src/utils/builders/search_messages_query_builder.dart';
 part 'src/utils/builders/user_permissions_builder.dart';
 part 'src/utils/builders/server_permissions_builder.dart';
 part 'src/utils/builders/channel_permissions_builder.dart';
+part 'src/utils/builders/user_edit_builder.dart';
 part 'src/utils/extensions/ulid_extension.dart';
 part 'src/utils/flags_utils.dart';
