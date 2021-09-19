@@ -4,7 +4,7 @@ typedef RawApiMap = Map<String, dynamic>;
 
 abstract class IVolt {
   String get _token;
-  _HttpEndpoints get httpEndpoints;
+  _IHttpEndpoints get httpEndpoints;
 
   Cache<Ulid, Channel> get channels;
   Cache<Ulid, User> get users;
