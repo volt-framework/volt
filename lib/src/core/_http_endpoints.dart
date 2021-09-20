@@ -22,61 +22,65 @@ class _HttpEndpoints extends _IHttpEndpoints {
 
   @override
   Future<NodeInfo> queryNode() async {
-    final res = await _handler.get('/');
+    final res = await BasicRequest._new(_handler, '/').execute();
     return NodeInfo._new(res.body);
   }
 
   @override
   Future<Message> sendMessage(Ulid id, MessageBuilder message) async {
-    final res = await _handler.post(
-      '/channels/${id.toString()}/messages',
-      body: message.build(),
-    );
+    final res = await BasicRequest._new(_handler, '/channels/$id/messages',
+            method: 'POST', body: message.build())
+        .execute();
     return Message._new(_client, res.body);
   }
 
   @override
   Future<T> fetchChannel<T extends Channel>(Ulid id) async {
-    final res = await _handler.get('/channels/${id.toString()}');
+    final res = await BasicRequest._new(_handler, '/channels/$id').execute();
     return Channel._define(_client, res.body) as T;
   }
 
   @override
   Future<void> joinVoiceChannel(Ulid channelId) {
-    return _handler.post('/channels/${channelId.toString()}/join_call');
+    return BasicRequest._new(_handler, '/channels/$channelId/join_call',
+            method: 'POST')
+        .execute();
   }
 
   @override
   Future<T> fetchUser<T extends User>(Ulid id) async {
-    final res = await _handler.get('/users/${id.toString()}');
+    final res = await BasicRequest._new(_handler, '/users/$id').execute();
     return User._define(_client, res.body) as T;
   }
 
   @override
   Future<Server> fetchServer(Ulid id) async {
-    final res = await _handler.get('/servers/${id.toString()}');
+    final res = await BasicRequest._new(_handler, '/servers/$id').execute();
     return Server._new(_client, res.body);
   }
 
   @override
   Future<void> editSelf(UserEditBuilder builder) {
-    return _handler.patch('/users/@me', body: builder.build());
+    return BasicRequest._new(_handler, '/users/@me',
+            method: 'PATCH', body: builder.build())
+        .execute();
   }
 
   @override
   Uri fetchDefaultAvatar(Ulid id) {
-    return Uri.https(_handler.baseUrl, '/${id.toString()}/default_avatar');
+    return Uri.https(_handler.baseUrl, '/$id/default_avatar');
   }
 
   @override
   Future<BotUser> fetchSelf() async {
-    final res = await _handler.get('/users/@me');
+    final res = await BasicRequest._new(_handler, '/users/@me').execute();
     return BotUser._new(_client, res.body);
   }
 
   @override
   Future<UserProfile> fetchUserProfile(Ulid id) async {
-    final res = await _handler.get('/users/${id.toString()}/profile');
+    final res =
+        await BasicRequest._new(_handler, '/users/$id/profile').execute();
     return UserProfile._new(res.body);
   }
 }
