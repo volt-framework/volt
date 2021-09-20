@@ -13,6 +13,7 @@ class _HttpHandler {
   Future<HttpResponse> execute(HttpRequest httpRequest) async =>
       _handle(await _http.execute(httpRequest));
 
+  // TODO: handle errors
   Future<HttpResponse> _handle(http.Response response) async {
     _logger.fine('Got response: ${response.body}');
 
@@ -25,12 +26,11 @@ class _HttpHandler {
       );
     }
 
-    // TODO: maybe handle future error in HttpEndpoints, not here?
-    return Future.error(HttpResponseError._new(
+    return HttpResponseError._new(
       response.body.isEmpty
           ? null
           : jsonDecode(utf8.decode(response.bodyBytes)),
       statusCode: response.statusCode,
-    ));
+    );
   }
 }
