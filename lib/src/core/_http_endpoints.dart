@@ -11,6 +11,8 @@ abstract class _IHttpEndpoints {
   Future<UserProfile> fetchUserProfile(Ulid id);
   Uri fetchDefaultAvatar(Ulid id);
   Future<Server> fetchServer(Ulid id);
+  Future<Iterable<TextChannel>> fetchDmChannels();
+  Future<DmChannel> openDm(Ulid userId);
 }
 
 class _HttpEndpoints extends _IHttpEndpoints {
@@ -82,5 +84,19 @@ class _HttpEndpoints extends _IHttpEndpoints {
     final res =
         await BasicRequest._new(_handler, '/users/$id/profile').execute();
     return UserProfile._new(res.body);
+  }
+
+  @override
+  Future<Iterable<TextChannel>> fetchDmChannels() async {
+    final res = await BasicRequest._new(_handler, '/users/dms').execute();
+    return (res.body as List)
+        .map((e) => Channel._define(_client, e as RawApiMap) as TextChannel);
+  }
+
+  @override
+  Future<DmChannel> openDm(Ulid userId) async {
+    final res =
+        await BasicRequest._new(_handler, '/users/$userId/dm').execute();
+    return DmChannel._new(_client, res.body);
   }
 }
