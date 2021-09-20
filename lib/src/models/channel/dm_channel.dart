@@ -1,6 +1,6 @@
 part of volt;
 
-class DmChannel extends Channel implements MinimalTextChannel {
+class DmChannel extends Channel implements TextChannel {
   final bool isActive;
   final Iterable<CacheableUser> recipients;
   // TODO: replace with cacheable message??
