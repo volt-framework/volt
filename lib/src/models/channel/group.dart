@@ -1,6 +1,6 @@
 part of volt;
 
-class Group extends Channel implements MinimalTextChannel {
+class Group extends Channel implements TextChannel {
   final Iterable<CacheableUser> recipients;
   // TODO: replace with cacheable message??
   final String name;
@@ -13,7 +13,7 @@ class Group extends Channel implements MinimalTextChannel {
 
   Group._new(IVolt client, RawApiMap raw)
       : recipients = [
-          for (final userId in raw['recipients'] as List<String>)
+          for (final userId in raw['recipients'] as List)
             CacheableUser._new(client, Ulid(userId))
         ],
         name = raw['name'] as String,
