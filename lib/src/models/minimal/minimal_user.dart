@@ -4,11 +4,15 @@ abstract class MinimalUser extends UlidEntity implements Sendible, Mentionable {
   final IVolt client;
 
   // TODO: replace with cacheable dm channel ??????
-  final CacheableTextChannel channel;
+  final CacheableTextChannel<DmChannel> channel;
 
-  // TODO: add user methods
+  final Cacheable<Ulid, UserProfile> profile;
+
+  Uri get defaultAvatar => client.httpEndpoints.fetchDefaultAvatar(id);
+
   MinimalUser._new(this.client, Ulid id)
       : channel = CacheableTextChannel._new(client, id),
+        profile = _CacheableProfile._new(client, id),
         super(id);
 
   @override
