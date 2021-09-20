@@ -22,11 +22,12 @@ class BasicRequest extends HttpRequest {
     final req = http.Request(method, _url);
     if (body != null) req.body = jsonEncode(body);
     req.headers.addAll({
+      'User-Agent': 'Volt',
       'x-bot-token': _handler._client._token,
       'Content-Type': 'application/json',
     });
 
-    return http.Request(method, _url);
+    return req;
   }
 
   // we do a little shortcutting
