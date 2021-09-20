@@ -1,6 +1,6 @@
 part of volt;
 
-abstract class Cacheable<T extends Ulid, S extends UlidEntity> {
+abstract class Cacheable<T, S> {
   final IVolt _client;
   final T id;
 

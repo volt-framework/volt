@@ -4,6 +4,7 @@ typedef RawApiMap = Map<String, dynamic>;
 
 abstract class IVolt {
   String get _token;
+  SelfUser get self;
   _IHttpEndpoints get httpEndpoints;
 
   Cache<Ulid, Channel> get channels;
@@ -22,6 +23,9 @@ class VoltRest extends IVolt {
   final String _token;
 
   @override
+  late final SelfUser self;
+
+  @override
   late final _HttpEndpoints httpEndpoints;
 
   @override
@@ -34,6 +38,7 @@ class VoltRest extends IVolt {
       : channels = Cache<Ulid, Channel>(),
         users = Cache<Ulid, User>() {
     httpEndpoints = _HttpEndpoints(this);
+    self = SelfUser._new(this);
 
     // TODO: enabling/disabling logging in config
     Logger.root.onRecord.listen((LogRecord rec) {
