@@ -93,6 +93,7 @@ class VoltRest extends IVolt {
 
 class Volt extends VoltRest {
   late final Stream<dynamic> onRawEvent;
+  late final Stream<ReadyEvent> onReady;
   late final Stream<MessageReceivedEvent> onMessageReceived;
   late final Stream<ChannelStartTypingEvent> onChannelStartTyping;
   late final Stream<ChannelStopTypingEvent> onChannelStopTyping;

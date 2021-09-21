@@ -58,6 +58,10 @@ class _EventHandler implements Disposable {
       case 'Authenticated':
         break;
 
+      case 'Ready':
+        _controller.onReady.add(ReadyEvent._new(_controller._client, raw));
+        break;
+
       case 'Message':
         _controller.onMessageReceived.add(
           MessageReceivedEvent._new(_controller._client, raw),

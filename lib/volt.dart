@@ -29,6 +29,7 @@ part 'src/internal/cache.dart';
 part 'src/internal/client_options.dart';
 
 // Events
+part 'src/events/ready.dart';
 part 'src/events/message_received.dart';
 part 'src/events/channel_start_typing.dart';
 part 'src/events/channel_stop_typing.dart';

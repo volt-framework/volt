@@ -4,6 +4,7 @@ class _EventController implements Disposable {
   final Volt _client;
 
   late final StreamController<RawApiMap> onRawEvent;
+  late final StreamController<ReadyEvent> onReady;
   late final StreamController<MessageReceivedEvent> onMessageReceived;
   late final StreamController<ChannelStartTypingEvent> onChannelStartTyping;
   late final StreamController<ChannelStopTypingEvent> onChannelStopTyping;
@@ -11,6 +12,9 @@ class _EventController implements Disposable {
   _EventController(this._client) {
     onRawEvent = StreamController.broadcast();
     _client.onRawEvent = onRawEvent.stream;
+
+    onReady = StreamController.broadcast();
+    _client.onReady = onReady.stream;
 
     onMessageReceived = StreamController.broadcast();
     _client.onMessageReceived = onMessageReceived.stream;
