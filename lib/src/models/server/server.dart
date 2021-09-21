@@ -1,7 +1,7 @@
 part of volt;
 
 /// Revolt server
-class Server extends UlidEntity {
+class Server extends MinimalServer {
   /// Reference to [Volt] instance
   final IVolt client;
 
@@ -76,5 +76,5 @@ class Server extends UlidEntity {
             raw['banner'] == null ? null : File._new(raw['icon'] as RawApiMap),
         isNsfw = raw['nsfw'] as bool?,
         flags = ServerFlags._new(raw['flags'] as int? ?? 0),
-        super(Ulid(raw['_id'] as String));
+        super._new(Ulid(raw['_id'] as String));
 }

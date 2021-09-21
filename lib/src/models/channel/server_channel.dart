@@ -1,8 +1,7 @@
 part of volt;
 
 class ServerChannel extends Channel implements Mentionable {
-  // TODO: replace with cacheable server
-  final UlidEntity server;
+  final CacheableServer server;
 
   final String name;
   final String? description;
@@ -22,7 +21,7 @@ class ServerChannel extends Channel implements Mentionable {
   final UlidEntity? lastMessage;
 
   ServerChannel._new(IVolt client, RawApiMap raw)
-      : server = UlidEntity(Ulid(raw['server'] as String)),
+      : server = CacheableServer._new(client, Ulid(raw['server'] as String)),
         name = raw['name'] as String,
         description = raw['description'] as String?,
         icon = raw['icon'] as RawApiMap?,
