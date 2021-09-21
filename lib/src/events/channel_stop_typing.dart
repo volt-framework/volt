@@ -7,5 +7,5 @@ class ChannelStopTypingEvent extends Event {
   ChannelStopTypingEvent._new(IVolt client, RawApiMap raw)
       : channel = CacheableTextChannel._new(client, Ulid(raw['id'] as String)),
         user = CacheableUser._new(client, Ulid(raw['user'] as String)),
-        super(raw['type'] as String);
+        super._new(raw['type'] as String);
 }

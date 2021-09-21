@@ -5,5 +5,5 @@ class MessageReceivedEvent extends Event {
 
   MessageReceivedEvent._new(Volt client, RawApiMap raw)
       : message = Message._new(client, raw),
-        super(raw['type'] as String);
+        super._new(raw['type'] as String);
 }
