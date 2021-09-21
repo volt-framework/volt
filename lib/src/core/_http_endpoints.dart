@@ -1,18 +1,33 @@
 part of volt;
 
 abstract class _IHttpEndpoints {
+  // Core
   Future<NodeInfo> queryNode();
-  Future<Message> sendMessage(Ulid id, MessageBuilder message);
-  Future<T> fetchChannel<T extends Channel>(Ulid id);
-  Future<void> joinVoiceChannel(Ulid channelId);
+
+  // User Information
   Future<T> fetchUser<T extends User>(Ulid id);
   Future<BotUser> fetchSelf();
   Future<void> editSelf(UserEditBuilder builder);
   Future<UserProfile> fetchUserProfile(Ulid id);
   Uri fetchDefaultAvatar(Ulid id);
-  Future<Server> fetchServer(Ulid id);
+
+  // Direct Messaging
   Future<Iterable<TextChannel>> fetchDmChannels();
   Future<DmChannel> openDm(Ulid userId);
+
+  // Channel Information
+  Future<T> fetchChannel<T extends Channel>(Ulid id);
+  Future<void> editChannel(Ulid id, ChannelEditBuilder builder);
+  Future<void> closeChannel(Ulid id);
+
+  // Messaging
+  Future<Message> sendMessage(Ulid id, MessageBuilder message);
+
+  // Voice
+  Future<void> joinVoiceChannel(Ulid channelId);
+
+  // Server Information
+  Future<Server> fetchServer(Ulid id);
 }
 
 class _HttpEndpoints extends _IHttpEndpoints {
@@ -42,12 +57,23 @@ class _HttpEndpoints extends _IHttpEndpoints {
     return Channel._define(_client, res.body) as T;
   }
 
+  /// Edit a channel object.
   @override
-  Future<void> joinVoiceChannel(Ulid channelId) {
-    return BasicRequest._new(_handler, '/channels/$channelId/join_call',
-            method: 'POST')
-        .execute();
-  }
+  Future<void> editChannel(Ulid id, ChannelEditBuilder builder) =>
+      BasicRequest._new(_handler, '/channels/$id',
+              method: 'PATCH', body: builder.build())
+          .execute();
+
+  /// Deletes a server channel, leaves a group or closes a DM.
+  @override
+  Future<void> closeChannel(Ulid id) =>
+      BasicRequest._new(_handler, '/channels/$id', method: 'DELETE').execute();
+
+  @override
+  Future<void> joinVoiceChannel(Ulid channelId) =>
+      BasicRequest._new(_handler, '/channels/$channelId/join_call',
+              method: 'POST')
+          .execute();
 
   @override
   Future<T> fetchUser<T extends User>(Ulid id) async {
@@ -62,16 +88,14 @@ class _HttpEndpoints extends _IHttpEndpoints {
   }
 
   @override
-  Future<void> editSelf(UserEditBuilder builder) {
-    return BasicRequest._new(_handler, '/users/@me',
-            method: 'PATCH', body: builder.build())
-        .execute();
-  }
+  Future<void> editSelf(UserEditBuilder builder) =>
+      BasicRequest._new(_handler, '/users/@me',
+              method: 'PATCH', body: builder.build())
+          .execute();
 
   @override
-  Uri fetchDefaultAvatar(Ulid id) {
-    return Uri.https(_handler.baseUrl, '/$id/default_avatar');
-  }
+  Uri fetchDefaultAvatar(Ulid id) =>
+      Uri.https(_handler.baseUrl, '/$id/default_avatar');
 
   @override
   Future<BotUser> fetchSelf() async {

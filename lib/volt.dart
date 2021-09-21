@@ -84,6 +84,7 @@ part 'src/utils/builders/fetch_messages_query_builder.dart';
 part 'src/utils/builders/search_messages_query_builder.dart';
 part 'src/utils/builders/user_permissions_builder.dart';
 part 'src/utils/builders/server_permissions_builder.dart';
+part 'src/utils/builders/channel_edit_builder.dart';
 part 'src/utils/builders/channel_permissions_builder.dart';
 part 'src/utils/builders/user_edit_builder.dart';
 part 'src/utils/extensions/ulid_extension.dart';
