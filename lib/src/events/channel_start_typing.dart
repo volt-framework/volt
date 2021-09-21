@@ -1,12 +1,11 @@
 part of volt;
 
 class ChannelStartTypingEvent extends Event {
-  // TODO: replace with cacheable
-  final UlidEntity channel;
-  final UlidEntity user;
+  final CacheableTextChannel channel;
+  final CacheableUser user;
 
-  ChannelStartTypingEvent._new(RawApiMap raw)
-      : channel = UlidEntity(Ulid(raw['id'] as String)),
-        user = UlidEntity(Ulid(raw['user'] as String)),
+  ChannelStartTypingEvent._new(IVolt client, RawApiMap raw)
+      : channel = CacheableTextChannel._new(client, Ulid(raw['id'] as String)),
+        user = CacheableUser._new(client, Ulid(raw['user'] as String)),
         super(raw['type'] as String);
 }

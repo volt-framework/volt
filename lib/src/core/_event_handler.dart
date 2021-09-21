@@ -64,11 +64,13 @@ class _EventHandler implements Disposable {
         break;
 
       case 'ChannelStartTyping':
-        _controller.onChannelStartTyping.add(ChannelStartTypingEvent._new(raw));
+        _controller.onChannelStartTyping
+            .add(ChannelStartTypingEvent._new(_controller._client, raw));
         break;
 
       case 'ChannelStopTyping':
-        _controller.onChannelStopTyping.add(ChannelStopTypingEvent._new(raw));
+        _controller.onChannelStopTyping
+            .add(ChannelStopTypingEvent._new(_controller._client, raw));
         break;
 
       default:
