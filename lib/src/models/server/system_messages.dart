@@ -1,5 +1,6 @@
 part of volt;
 
+// TODO: make it able to convert to SystemMessagesBuilder
 /// System message channels.
 class SystemMessages {
   /// Channel where user join events should be sent.

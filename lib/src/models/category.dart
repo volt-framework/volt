@@ -1,5 +1,6 @@
 part of volt;
 
+// TODO: make it able convert to [CategoryBuilder]
 class ServerCategory extends UlidEntity {
   final String title;
   final Iterable<CacheableChannel<ServerChannel>> channels;
