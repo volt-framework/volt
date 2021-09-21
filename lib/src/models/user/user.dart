@@ -22,7 +22,11 @@ class User extends MinimalUser {
         badges = UserBadges._new(raw['badges'] as int? ?? 0),
         isOnline = raw['online'] as bool?,
         flags = UserFlags._new(raw['flags'] as int? ?? 0),
-        super._new(client, Ulid(raw['_id']));
+        super._new(client, Ulid(raw['_id'])) {
+    if (client.options.cacheOptions.cacheUsers) {
+      client.users[id] = this;
+    }
+  }
 
   factory User._define(IVolt client, RawApiMap raw) {
     if (raw['bot'] != null) return BotUser._new(client, raw);

@@ -9,7 +9,9 @@ class Channel extends UlidEntity {
       : type = ChannelType.from(raw['channel_type'] as String),
         nonce = raw['none'] == null ? null : Ulid(raw['none']),
         super(Ulid(raw['_id'])) {
-    print('data: $raw');
+    if (client.options.cacheOptions.cacheChannels) {
+      client.channels[id] = this;
+    }
   }
 
   Channel._raw(this.client, Ulid id,

@@ -75,5 +75,9 @@ class Server extends MinimalServer {
             raw['banner'] == null ? null : File._new(raw['icon'] as RawApiMap),
         isNsfw = raw['nsfw'] as bool?,
         flags = ServerFlags._new(raw['flags'] as int? ?? 0),
-        super._new(Ulid(raw['_id'] as String));
+        super._new(Ulid(raw['_id'] as String)) {
+    if (client.options.cacheOptions.cacheServers) {
+      client.servers[id] = this;
+    }
+  }
 }
