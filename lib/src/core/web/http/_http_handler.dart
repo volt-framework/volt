@@ -7,7 +7,6 @@ class _HttpHandler {
   final _HttpClient _http;
   final String baseUrl;
 
-  // TODO: grab baseUrl from client config
   _HttpHandler(this._client, this.baseUrl) : _http = _HttpClient();
 
   Future<HttpResponse> execute(HttpRequest httpRequest) async =>
