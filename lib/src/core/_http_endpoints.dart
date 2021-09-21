@@ -35,7 +35,7 @@ class _HttpEndpoints extends _IHttpEndpoints {
   final IVolt _client;
 
   _HttpEndpoints(this._client)
-      : _handler = _HttpHandler(_client, 'api.revolt.chat');
+      : _handler = _HttpHandler(_client, _client.options.httpBaseUrl);
 
   @override
   Future<NodeInfo> queryNode() async {

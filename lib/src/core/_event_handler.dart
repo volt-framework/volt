@@ -11,7 +11,8 @@ class _EventHandler implements Disposable {
   late final Timer _heartbeat;
 
   _EventHandler(this._controller)
-      : _ws = _WsClient(Uri.parse('wss://ws.revolt.chat')) {
+      : _ws = _WsClient(
+            Uri(scheme: 'wss', host: _controller._client.options.wsBaseUrl)) {
     _subscription = _ws.stream.listen(_handle);
 
     _sendAuth();

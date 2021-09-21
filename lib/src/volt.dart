@@ -4,8 +4,9 @@ typedef RawApiMap = Map<String, dynamic>;
 
 abstract class IVolt {
   String get _token;
-  SelfUser get self;
+  ClientOptions get options;
   _IHttpEndpoints get httpEndpoints;
+  SelfUser get self;
 
   Cache<Ulid, Server> get servers;
   Cache<Ulid, Channel> get channels;
@@ -24,6 +25,9 @@ class VoltRest extends IVolt {
   final String _token;
 
   @override
+  late final ClientOptions options;
+
+  @override
   late final SelfUser self;
 
   @override
@@ -38,28 +42,32 @@ class VoltRest extends IVolt {
   @override
   final Cache<Ulid, User> users;
 
-  VoltRest(this._token)
+  VoltRest(this._token, {ClientOptions? options})
       : servers = Cache<Ulid, Server>(),
         channels = Cache<Ulid, Channel>(),
         users = Cache<Ulid, User>() {
+    this.options = options ?? ClientOptions();
+
     httpEndpoints = _HttpEndpoints(this);
     self = SelfUser._new(this);
 
-    // TODO: enabling/disabling logging in config
-    Logger.root.onRecord.listen((LogRecord rec) {
-      print(
-        "[${rec.time}] [${rec.level.name}] [${rec.loggerName}] ${rec.message}",
-      );
-    });
+    if (this.options.enableLogging) {
+      Logger.root.onRecord.listen((LogRecord rec) {
+        print(
+          "[${rec.time}] [${rec.level.name}] [${rec.loggerName}] ${rec.message}",
+        );
+      });
+    }
 
-    // TODO: enabling/disabling exceptions ignoring in config
-    Isolate.current.setErrorsFatal(false);
-    final port = ReceivePort();
-    port.listen((error) {
-      final trace = error[1] != null ? '. Stacktrace: \n${error[1]}' : '';
-      _logger.shout('Error: Message: [${error[0]}]$trace');
-    });
-    Isolate.current.addErrorListener(port.sendPort);
+    if (this.options.ignoreExceptions) {
+      Isolate.current.setErrorsFatal(false);
+      final port = ReceivePort();
+      port.listen((error) {
+        final trace = error[1] != null ? '. Stacktrace: \n${error[1]}' : '';
+        _logger.shout('Error: Message: [${error[0]}]$trace');
+      });
+      Isolate.current.addErrorListener(port.sendPort);
+    }
   }
 
   @override
@@ -93,7 +101,8 @@ class Volt extends VoltRest {
   // ignore: unused_field
   late final _EventHandler _handler;
 
-  Volt(String token) : super(token) {
+  Volt(String token, {ClientOptions? options})
+      : super(token, options: options) {
     _controller = _EventController(this);
     _handler = _EventHandler(_controller);
   }

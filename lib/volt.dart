@@ -26,6 +26,7 @@ part 'src/core/event.dart';
 
 // Internal
 part 'src/internal/cache.dart';
+part 'src/internal/client_options.dart';
 
 // Events
 part 'src/events/message_received.dart';
