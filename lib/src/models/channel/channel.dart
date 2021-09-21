@@ -33,8 +33,7 @@ class Channel extends UlidEntity {
     }
   }
 
-  // TODO
-  Future<void> delete() => throw UnimplementedError();
+  Future<void> close() => client.httpEndpoints.closeChannel(id);
 }
 
 class ChannelType extends Enum<String> {
