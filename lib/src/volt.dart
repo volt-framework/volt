@@ -7,6 +7,7 @@ abstract class IVolt {
   SelfUser get self;
   _IHttpEndpoints get httpEndpoints;
 
+  Cache<Ulid, Server> get servers;
   Cache<Ulid, Channel> get channels;
   Cache<Ulid, User> get users;
 
@@ -29,13 +30,17 @@ class VoltRest extends IVolt {
   late final _HttpEndpoints httpEndpoints;
 
   @override
+  final Cache<Ulid, Server> servers;
+
+  @override
   final Cache<Ulid, Channel> channels;
 
   @override
   final Cache<Ulid, User> users;
 
   VoltRest(this._token)
-      : channels = Cache<Ulid, Channel>(),
+      : servers = Cache<Ulid, Server>(),
+        channels = Cache<Ulid, Channel>(),
         users = Cache<Ulid, User>() {
     httpEndpoints = _HttpEndpoints(this);
     self = SelfUser._new(this);
