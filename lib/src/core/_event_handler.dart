@@ -52,7 +52,6 @@ class _EventHandler implements Disposable {
     _controller.onRawEvent.add(raw);
 
     switch (raw['type']) {
-      // TODO: parse ready event and add data to cache
       case 'Pong':
         break;
       case 'Authenticated':
