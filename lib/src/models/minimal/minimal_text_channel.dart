@@ -8,6 +8,9 @@ abstract class MinimalTextChannel implements Channel, Sendible, Mentionable {
   Stream<dynamic> fetchMessages(FetchMessagesQueryBuilder query);
   Stream<dynamic> findMessages(SearchMessagesQueryBuilder query);
 
+  Future<void> startTyping();
+  Future<void> stopTyping();
+
   @override
   Future<Message> sendMessage(MessageBuilder message);
 

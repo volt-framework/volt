@@ -22,6 +22,24 @@ class ServerTextChannel extends ServerChannel implements TextChannel {
   }
 
   @override
+  Future<void> startTyping() {
+    if (client is Volt) {
+      return (client as Volt)._handler.beginTyping(id);
+    } else {
+      throw UnsupportedError('Cannot use startTyping() with VoltRest');
+    }
+  }
+
+  @override
+  Future<void> stopTyping() {
+    if (client is Volt) {
+      return (client as Volt)._handler.endTyping(id);
+    } else {
+      throw UnsupportedError('Cannot use startTyping() with VoltRest');
+    }
+  }
+
+  @override
   Future<Message> sendMessage(MessageBuilder message) =>
       client.httpEndpoints.sendMessage(id, message);
 }
