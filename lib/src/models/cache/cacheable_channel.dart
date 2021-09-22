@@ -39,9 +39,6 @@ class CacheableTextChannel<T extends TextChannel> extends Channel
   DateTime get createdAt => throw UnimplementedError();
 
   @override
-  Future<void> delete() => throw UnimplementedError();
-
-  @override
   Future<Message> sendMessage(MessageBuilder message) =>
       client.httpEndpoints.sendMessage(id, message);
 
@@ -71,6 +68,24 @@ class CacheableTextChannel<T extends TextChannel> extends Channel
   Stream findMessages(SearchMessagesQueryBuilder query) {
     // TODO: implement findMessages
     throw UnimplementedError();
+  }
+
+  @override
+  Future<void> startTyping() {
+    if (client is Volt) {
+      return (client as Volt)._handler.beginTyping(id);
+    } else {
+      throw UnsupportedError('Cannot use startTyping() with VoltRest');
+    }
+  }
+
+  @override
+  Future<void> stopTyping() {
+    if (client is Volt) {
+      return (client as Volt)._handler.endTyping(id);
+    } else {
+      throw UnsupportedError('Cannot use startTyping() with VoltRest');
+    }
   }
 
   @override
