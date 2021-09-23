@@ -20,6 +20,15 @@ abstract class _IHttpEndpoints {
   Future<void> editChannel(Ulid id, ChannelEditBuilder builder);
   Future<void> closeChannel(Ulid id);
 
+  // Channel invites
+  Future<Invite> createInvite(Ulid channelId);
+
+  // Channel permissions
+  Future<void> setRoleChannelPermissions(
+      Ulid channelId, Ulid roleId, RoleChannelPermissionsBuilder builder);
+  Future<void> setDefaultChannelPermissions(
+      Ulid channelId, DefaultChannelPermissionsBuilder builder);
+
   // Messaging
   Future<Message> sendMessage(Ulid id, MessageBuilder message);
 
@@ -123,4 +132,28 @@ class _HttpEndpoints extends _IHttpEndpoints {
         await BasicRequest._new(_handler, '/users/$userId/dm').execute();
     return DmChannel._new(_client, res.body);
   }
+
+  @override
+  Future<Invite> createInvite(Ulid channelId) async {
+    final res = await BasicRequest._new(
+      _handler,
+      '/channels/$channelId/invites',
+      method: 'POST',
+    ).execute();
+    return Invite._new(_client, res.body);
+  }
+
+  @override
+  Future<void> setRoleChannelPermissions(
+          Ulid channelId, Ulid roleId, RoleChannelPermissionsBuilder builder) =>
+      BasicRequest._new(_handler, '/channels/$channelId/permissions/$roleId',
+              method: 'PUT', body: builder.build())
+          .execute();
+
+  @override
+  Future<void> setDefaultChannelPermissions(
+          Ulid channelId, DefaultChannelPermissionsBuilder builder) =>
+      BasicRequest._new(_handler, '/channels/$channelId/permissions/default',
+              method: 'PUT', body: builder.build())
+          .execute();
 }

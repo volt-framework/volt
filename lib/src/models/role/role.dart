@@ -5,11 +5,8 @@ class Role {
   /// Role name.
   String name;
 
-  /// Server permissions.
-  ServerPermissions serverPermissions;
-
-  /// Channel permissions.
-  ChannelPermissions channelPermissions;
+  /// Role permissions.
+  RolePermissions permissions;
 
   /// Valid HTML color.
   String? color;
@@ -22,10 +19,7 @@ class Role {
 
   Role._new(RawApiMap raw)
       : name = raw['name'] as String,
-        serverPermissions =
-            ServerPermissions._new(raw['permissions'][0] as int),
-        channelPermissions =
-            ChannelPermissions._new(raw['permissions'][1] as int),
+        permissions = RolePermissions._new(raw['permissions'] as List<dynamic>),
         color = raw['colour'] as String?,
         isHoist = raw['hoist'] as bool?,
         rank = raw['rank'] as int?;
