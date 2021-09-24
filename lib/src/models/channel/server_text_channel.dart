@@ -39,6 +39,8 @@ class ServerTextChannel extends ServerChannel implements TextChannel {
     }
   }
 
+  Future<Invite> createInvite() => client.httpEndpoints.createInvite(id);
+
   @override
   Future<Message> sendMessage(MessageBuilder message) =>
       client.httpEndpoints.sendMessage(id, message);

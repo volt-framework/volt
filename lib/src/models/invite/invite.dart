@@ -6,8 +6,8 @@ class Invite {
   /// Invite code
   final String code;
 
-  // TODO: implement resolve
-  Future<InviteInfo> resolve() => throw UnimplementedError();
+  // TODO: implement fetchInfo
+  Future<InviteInfo> fetchInfo() => throw UnimplementedError();
 
   Invite._new(this._client, RawApiMap raw) : code = raw['code'] as String;
 }
