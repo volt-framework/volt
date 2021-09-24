@@ -37,6 +37,7 @@ part 'src/events/channel_stop_typing.dart';
 // Models
 part 'src/models/node_info.dart';
 part 'src/models/message.dart';
+part 'src/models/member.dart';
 part 'src/models/relationship.dart';
 part 'src/models/role/role.dart';
 part 'src/models/role/role_permissions.dart';
@@ -55,6 +56,7 @@ part 'src/models/base/base_server.dart';
 part 'src/models/base/base_voice_channel.dart';
 part 'src/models/base/base_user.dart';
 part 'src/models/base/base_role.dart';
+part 'src/models/base/base_member.dart';
 part 'src/models/file/file.dart';
 part 'src/models/file/file_metadata.dart';
 part 'src/models/permissions/permissions.dart';
