@@ -65,6 +65,11 @@ class Group extends Channel implements TextChannel {
     }
   }
 
+  /// Sets default role permissions overrides.
+  Future<void> setDefaultPermissionsOverrides(
+          DefaultChannelPermissionsBuilder builder) =>
+      client.httpEndpoints.setDefaultChannelPermissions(id, builder);
+
   @override
   String get mention => '<#${id.toString()}>';
 

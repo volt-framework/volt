@@ -27,7 +27,7 @@ class Server extends MinimalServer {
   /// System message channels.
   final SystemMessages systemMessages;
 
-  final Cache<String, Role> roles;
+  late final Iterable<Role> roles;
 
   /// Default server permissions for all members.
   final ServerPermissions? defaultServerPermissions;
@@ -63,9 +63,9 @@ class Server extends MinimalServer {
         ],
         systemMessages = SystemMessages._new(
             client, raw['system_messages'] as RawApiMap? ?? {}),
-        roles = Cache()
-          ..addMap((raw['roles'] as RawApiMap? ?? {}).map(
-              (key, value) => MapEntry(key, Role._new(value as RawApiMap)))),
+        roles = ((raw['roles'] as RawApiMap? ?? {})
+            .entries
+            .map((a) => Role._new(a.key, a.value as RawApiMap))),
         defaultServerPermissions = ServerPermissions._new(
             (raw['default_permissions'] as List<dynamic>)[0] as int),
         defaultChannelPermissions = ChannelPermissions._new(

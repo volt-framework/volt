@@ -1,32 +1,58 @@
 part of volt;
 
 class ServerChannel extends Channel implements Mentionable {
+  /// Reference to server.
   final CacheableServer server;
 
+  /// Channel name.
   final String name;
+
+  /// Channel description.
   final String? description;
 
-  // TODO: replace with attachment object
-  final RawApiMap? icon;
+  /// Channel icon.
+  final File? icon;
 
-  // TODO: replace with permissions object
-  final int? defaultPermissions;
+  /// Default role permissions overrides.
+  final ChannelPermissions? defaultPermissionsOverrides;
 
-  // TODO: replace with map {role:permissions}
-  RawApiMap? rolePermissions;
+  /// Role permissions overrides.
+  final Iterable<RolePermissionsOverride> rolePermissionsOverrides;
 
+  /// Whether is this channel is marked as Not Safe For Work.
   final bool? isNsfw;
 
   // TODO: replace with cacheable message??
+  /// Last message.
   final UlidEntity? lastMessage;
+
+  /// Overrides default permissions.
+  Future<void> overrideDefaultPermissions(
+          DefaultChannelPermissionsBuilder builder) =>
+      client.httpEndpoints.setDefaultChannelPermissions(id, builder);
+
+  /// Overrides permissions of the [role].
+  Future<void> overrideRolePermissions(
+          MinimalRole role, RoleChannelPermissionsBuilder builder) =>
+      role.overridePermissions(this, builder);
 
   ServerChannel._new(IVolt client, RawApiMap raw)
       : server = CacheableServer._new(client, Ulid(raw['server'] as String)),
         name = raw['name'] as String,
         description = raw['description'] as String?,
-        icon = raw['icon'] as RawApiMap?,
-        defaultPermissions = raw['default_permissions'] as int?,
-        rolePermissions = raw['role_permissions'] as RawApiMap?,
+        icon = raw['icon'] == null ? null : File._new(raw['icon'] as RawApiMap),
+        defaultPermissionsOverrides = raw['default_permissions'] == null
+            ? null
+            : ChannelPermissions._new(raw['default_permissions'] as int),
+        rolePermissionsOverrides =
+            ((raw['role_permissions'] as RawApiMap? ?? {}).entries.map(
+                  (a) => RolePermissionsOverride._new(
+                    client,
+                    CacheableServer._new(client, Ulid(raw['server'] as String)),
+                    a.key,
+                    a.value as int,
+                  ),
+                )),
         isNsfw = raw['nsfw'] as bool?,
         lastMessage = raw['last_message_id'] == null
             ? null
