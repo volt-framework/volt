@@ -18,6 +18,9 @@ class Server extends BaseServer {
   /// Server description.
   final String? description;
 
+  /// Server members cache.
+  final Cache<Ulid, Member> members;
+
   /// List of server channels.
   final Iterable<CacheableChannel<ServerChannel>> channels;
 
@@ -52,6 +55,7 @@ class Server extends BaseServer {
         owner = CacheableUser._new(client, Ulid(raw['owner'] as String)),
         name = raw['name'] as String,
         description = raw['description'] as String?,
+        members = Cache<Ulid, Member>(),
         channels = [
           for (final channelId in raw['channels'] as List<dynamic>)
             CacheableChannel<ServerChannel>._new(
