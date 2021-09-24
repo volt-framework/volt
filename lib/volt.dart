@@ -48,6 +48,7 @@ part 'src/models/server/system_messages.dart';
 part 'src/models/cache/cacheable_server.dart';
 part 'src/models/cache/cacheable_channel.dart';
 part 'src/models/cache/cacheable_user.dart';
+part 'src/models/cache/cacheable_member.dart';
 part 'src/models/cache/internal/_cacheable_profile.dart';
 part 'src/models/cache/internal/_cacheable_self_user.dart';
 part 'src/models/cache/cacheable_role.dart';

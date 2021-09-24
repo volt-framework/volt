@@ -1,12 +1,6 @@
 part of volt;
 
 class Member extends BaseMember {
-  /// Reference to client.
-  final IVolt client;
-
-  /// Reference to server.
-  final CacheableServer server;
-
   /// Custom member nickname.
   final String? nickname;
 
@@ -16,10 +10,8 @@ class Member extends BaseMember {
   /// List of member roles.
   final Iterable<CacheableRole> roles;
 
-  Member._new(this.client, RawApiMap raw)
-      : server =
-            CacheableServer._new(client, Ulid(raw['_id']['server'] as String)),
-        nickname = raw['nickname'] as String?,
+  Member._new(IVolt client, RawApiMap raw)
+      : nickname = raw['nickname'] as String?,
         avatar = raw['avatar'] == null
             ? null
             : File._new(raw['avatar'] as RawApiMap),
@@ -28,9 +20,16 @@ class Member extends BaseMember {
             CacheableRole._new(
               client,
               CacheableServer._new(
-                  client, Ulid(raw['_id']['server'] as String)),
+                client,
+                Ulid(raw['_id']['server'] as String),
+              ),
               Ulid(role as String),
             ),
         ],
-        super._new(Ulid(raw['_id']['user'] as String));
+        super._new(client, Ulid(raw['_id']['server']),
+            Ulid(raw['_id']['user'] as String)) {
+    if (client.options.cacheOptions.cacheMembers) {
+      server.getFromCache()?.members.add(id, this);
+    }
+  }
 }
