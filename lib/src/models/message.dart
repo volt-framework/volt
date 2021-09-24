@@ -13,8 +13,11 @@ class Message extends UlidEntity {
   final Ulid? nonce;
 
   final List<File> attachments;
-  // users
-  final List<UlidEntity> mentions;
+
+  // TODO: replace with member
+  final List<CacheableUser> mentions;
+
+  bool get isSystem => author.id.toString() == '0' * 26;
 
   Future<Message> reply(MessageBuilder builder, {bool shouldMention = false}) {
     builder._replies.add(MessageReplyBuilder(id, shouldMention));
@@ -37,7 +40,7 @@ class Message extends UlidEntity {
         mentions = [
           if (raw['mentions'] != null)
             for (final mention in raw['mentions'] as List<dynamic>)
-              UlidEntity(Ulid(mention))
+              CacheableUser._new(client, Ulid(mention))
         ],
         super(Ulid(raw['_id']));
 }
