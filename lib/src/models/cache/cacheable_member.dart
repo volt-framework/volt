@@ -1,12 +1,11 @@
 part of volt;
 
 class CacheableMember extends BaseMember implements Cacheable<Ulid, Member> {
-  final Cacheable<Ulid, Server> _server;
   @override
   final IVolt _client;
 
-  CacheableMember._new(this._client, this._server, Ulid id)
-      : super._new(_client, _server.id, id);
+  CacheableMember._new(this._client, Ulid serverId, Ulid id)
+      : super._new(_client, serverId, id);
 
   @override
   Future<Member> download() {
@@ -15,7 +14,7 @@ class CacheableMember extends BaseMember implements Cacheable<Ulid, Member> {
   }
 
   @override
-  Member? getFromCache() => _server.getFromCache()?.members[id];
+  Member? getFromCache() => server.getFromCache()?.members[id];
 
   @override
   FutureOr<Member> getOrDownload() async => getFromCache() ?? await download();
