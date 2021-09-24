@@ -1,6 +1,6 @@
 part of volt;
 
-class ServerVoiceChannel extends ServerChannel implements MinimalVoiceChannel {
+class ServerVoiceChannel extends ServerChannel implements BaseVoiceChannel {
   ServerVoiceChannel._new(IVolt client, RawApiMap raw)
       : super._new(client, raw);
 

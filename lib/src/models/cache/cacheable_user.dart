@@ -1,6 +1,6 @@
 part of volt;
 
-class CacheableUser<T extends User> extends MinimalUser
+class CacheableUser<T extends User> extends BaseUser
     implements Cacheable<Ulid, T> {
   @override
   final IVolt _client;

@@ -1,9 +1,9 @@
 part of volt;
 
-class CacheableRole extends MinimalRole implements Cacheable<Ulid, Role> {
+class CacheableRole extends BaseRole implements Cacheable<Ulid, Role> {
   @override
   final IVolt _client;
-  final MinimalServer server;
+  final BaseServer server;
 
   CacheableRole._new(this._client, this.server, Ulid id) : super._new(id);
 

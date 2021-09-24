@@ -1,6 +1,6 @@
 part of volt;
 
-class User extends MinimalUser {
+class User extends BaseUser {
   final String username;
   final File? avatar;
   // TODO: does it really need for bots?

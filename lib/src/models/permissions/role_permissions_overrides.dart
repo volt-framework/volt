@@ -5,7 +5,7 @@ class RolePermissionsOverride {
   final ChannelPermissions permissions;
 
   RolePermissionsOverride._new(
-      IVolt client, MinimalServer server, String roleId, int permissions)
+      IVolt client, BaseServer server, String roleId, int permissions)
       : role = CacheableRole._new(client, server, Ulid(roleId)),
         permissions = ChannelPermissions._new(permissions);
 }

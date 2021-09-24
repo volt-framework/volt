@@ -1,6 +1,6 @@
 part of volt;
 
-abstract class MinimalTextChannel implements Channel, Sendible, Mentionable {
+abstract class BaseTextChannel implements Channel, Sendible, Mentionable {
   // TODO: implement methods
   Future<Message> fetchMessage(Ulid id);
 

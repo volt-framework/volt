@@ -1,6 +1,6 @@
 part of volt;
 
-abstract class MinimalUser extends UlidEntity implements Sendible, Mentionable {
+abstract class BaseUser extends UlidEntity implements Sendible, Mentionable {
   final IVolt client;
 
   // TODO: replace with cacheable dm channel ??????
@@ -10,7 +10,7 @@ abstract class MinimalUser extends UlidEntity implements Sendible, Mentionable {
 
   Uri get defaultAvatar => client.httpEndpoints.fetchDefaultAvatar(id);
 
-  MinimalUser._new(this.client, Ulid id)
+  BaseUser._new(this.client, Ulid id)
       : channel = CacheableTextChannel._new(client, id),
         profile = _CacheableProfile._new(client, id),
         super(id);

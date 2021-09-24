@@ -1,7 +1,7 @@
 part of volt;
 
 /// Server role.
-class Role extends MinimalRole {
+class Role extends BaseRole {
   /// Role name.
   String name;
 

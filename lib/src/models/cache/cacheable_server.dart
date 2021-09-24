@@ -1,6 +1,6 @@
 part of volt;
 
-class CacheableServer extends MinimalServer implements Cacheable<Ulid, Server> {
+class CacheableServer extends BaseServer implements Cacheable<Ulid, Server> {
   @override
   final IVolt _client;
 

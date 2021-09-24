@@ -1,11 +1,11 @@
 part of volt;
 
-abstract class MinimalRole extends UlidEntity {
+abstract class BaseRole extends UlidEntity {
   /// Overrides permissions for specific channel.
   Future<void> overridePermissions(
           ServerChannel channel, RoleChannelPermissionsBuilder builder) =>
       channel.client.httpEndpoints
           .setRoleChannelPermissions(channel.id, id, builder);
 
-  MinimalRole._new(Ulid id) : super(id);
+  BaseRole._new(Ulid id) : super(id);
 }

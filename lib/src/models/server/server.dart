@@ -1,7 +1,7 @@
 part of volt;
 
 /// Revolt server
-class Server extends MinimalServer {
+class Server extends BaseServer {
   /// Reference to [Volt] instance
   final IVolt client;
 

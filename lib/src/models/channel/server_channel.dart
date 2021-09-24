@@ -33,7 +33,7 @@ class ServerChannel extends Channel implements Mentionable {
 
   /// Overrides permissions of the [role].
   Future<void> overrideRolePermissions(
-          MinimalRole role, RoleChannelPermissionsBuilder builder) =>
+          BaseRole role, RoleChannelPermissionsBuilder builder) =>
       role.overridePermissions(this, builder);
 
   ServerChannel._new(IVolt client, RawApiMap raw)
