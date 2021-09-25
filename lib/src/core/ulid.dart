@@ -33,6 +33,8 @@ class Ulid {
     return Ulid._(data);
   }
 
+  factory Ulid.fromNow() => Ulid.fromTimestamp(DateTime.now());
+
   /// Parse [Ulid] from string.
   factory Ulid(String value) {
     if (value.length == 26) {
