@@ -8,9 +8,8 @@ class Server extends BaseServer {
   /// Nonce value, used to prevent double requests to create objects.
   final String? nonce;
 
-  // TODO: maybe member?
   /// Server owner.
-  final CacheableUser owner;
+  final CacheableMember owner;
 
   /// Server name.
   final String name;
@@ -52,8 +51,9 @@ class Server extends BaseServer {
 
   Server._new(this.client, RawApiMap raw)
       : nonce = raw['nonce'] as String?,
-        owner = CacheableUser._new(client, Ulid(raw['owner'] as String)),
         name = raw['name'] as String,
+        owner = CacheableMember._new(
+            client, Ulid(raw['_id'] as String), Ulid(raw['owner'] as String)),
         description = raw['description'] as String?,
         members = Cache<Ulid, Member>(),
         channels = [
