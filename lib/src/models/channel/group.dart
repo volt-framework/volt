@@ -34,23 +34,20 @@ class Group extends Channel implements TextChannel {
         messages = Cache<Ulid, Message>(),
         super._new(client, raw);
 
+  /// Fetch a message by ID.
   @override
-  Future<Message> fetchMessage(Ulid id) {
-    // TODO: implement fetchMessage
-    throw UnimplementedError();
-  }
+  Future<Message> fetchMessage(Ulid messageId) =>
+      client.httpEndpoints.fetchMessage(id, messageId);
 
+  /// Fetch multiple messages.
   @override
-  Stream fetchMessages(FetchMessagesQueryBuilder query) {
-    // TODO: implement fetchMessages
-    throw UnimplementedError();
-  }
+  Future<MessageQueryData> fetchMessages(FetchMessagesQueryBuilder query) =>
+      client.httpEndpoints.fetchMessages(id, query);
 
+  /// Search for messages within the given parameters.
   @override
-  Stream findMessages(SearchMessagesQueryBuilder query) {
-    // TODO: implement findMessages
-    throw UnimplementedError();
-  }
+  Future<MessageQueryData> searchMessages(SearchMessagesQueryBuilder query) =>
+      client.httpEndpoints.searchMessages(id, query);
 
   @override
   Future<void> startTyping() {

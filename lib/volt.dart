@@ -61,6 +61,7 @@ part 'src/models/base/base_voice_channel.dart';
 part 'src/models/base/base_user.dart';
 part 'src/models/base/base_role.dart';
 part 'src/models/base/base_member.dart';
+part 'src/models/base/base_message.dart';
 part 'src/models/file/file.dart';
 part 'src/models/file/file_metadata.dart';
 part 'src/models/permissions/permissions.dart';

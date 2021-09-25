@@ -9,23 +9,20 @@ class ServerTextChannel extends ServerChannel implements TextChannel {
   @override
   final Cache<Ulid, Message> messages;
 
+  /// Fetch a message by ID.
   @override
-  Future<Message> fetchMessage(Ulid id) {
-    // TODO: implement fetchMessage
-    throw UnimplementedError();
-  }
+  Future<Message> fetchMessage(Ulid messageId) =>
+      client.httpEndpoints.fetchMessage(id, messageId);
 
+  /// Fetch multiple messages.
   @override
-  Stream<dynamic> fetchMessages(FetchMessagesQueryBuilder query) {
-    // TODO: implement fetchMessages and replace dynamic with result object
-    throw UnimplementedError();
-  }
+  Future<MessageQueryData> fetchMessages(FetchMessagesQueryBuilder query) =>
+      client.httpEndpoints.fetchMessages(id, query);
 
+  /// Search for messages within the given parameters.
   @override
-  Stream<dynamic> findMessages(SearchMessagesQueryBuilder query) {
-    // TODO: implement findMessages and replace dynamic with result object
-    throw UnimplementedError();
-  }
+  Future<MessageQueryData> searchMessages(SearchMessagesQueryBuilder query) =>
+      client.httpEndpoints.searchMessages(id, query);
 
   @override
   Future<void> startTyping() {
