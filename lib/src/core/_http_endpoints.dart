@@ -244,7 +244,6 @@ class _HttpEndpoints extends _IHttpEndpoints {
       method: 'POST',
       body: builder.build(),
     ).execute();
-    print(res.body);
     return MessagePollData._new(_client, channelId, res.body);
   }
 
