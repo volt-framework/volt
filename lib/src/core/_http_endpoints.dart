@@ -31,6 +31,16 @@ abstract class _IHttpEndpoints {
 
   // Messaging
   Future<Message> sendMessage(Ulid id, MessageBuilder message);
+  Future<MessageQueryData> fetchMessages(
+      Ulid channelId, FetchMessagesQueryBuilder builder);
+  Future<Message> fetchMessage(Ulid channelId, Ulid messageId);
+  Future<void> editMessage(
+      Ulid channelId, Ulid messageId, MessageEditBuilder builder);
+  Future<void> deleteMessage(Ulid channelId, Ulid messageId);
+  Future<MessagePollData> pollMessageChanges(
+      Ulid channelId, MessagePollBuilder builder);
+  Future<MessageQueryData> searchMessages(
+      Ulid channelId, SearchMessagesQueryBuilder builder);
 
   // Voice
   Future<void> joinVoiceChannel(Ulid channelId);
@@ -54,9 +64,12 @@ class _HttpEndpoints extends _IHttpEndpoints {
 
   @override
   Future<Message> sendMessage(Ulid id, MessageBuilder message) async {
-    final res = await BasicRequest._new(_handler, '/channels/$id/messages',
-            method: 'POST', body: message.build())
-        .execute();
+    final res = await BasicRequest._new(
+      _handler,
+      '/channels/$id/messages',
+      method: 'POST',
+      body: message.build(),
+    ).execute();
     return Message._new(_client, res.body);
   }
 
@@ -69,9 +82,12 @@ class _HttpEndpoints extends _IHttpEndpoints {
   /// Edit a channel object.
   @override
   Future<void> editChannel(Ulid id, ChannelEditBuilder builder) =>
-      BasicRequest._new(_handler, '/channels/$id',
-              method: 'PATCH', body: builder.build())
-          .execute();
+      BasicRequest._new(
+        _handler,
+        '/channels/$id',
+        method: 'PATCH',
+        body: builder.build(),
+      ).execute();
 
   /// Deletes a server channel, leaves a group or closes a DM.
   @override
@@ -79,10 +95,11 @@ class _HttpEndpoints extends _IHttpEndpoints {
       BasicRequest._new(_handler, '/channels/$id', method: 'DELETE').execute();
 
   @override
-  Future<void> joinVoiceChannel(Ulid channelId) =>
-      BasicRequest._new(_handler, '/channels/$channelId/join_call',
-              method: 'POST')
-          .execute();
+  Future<void> joinVoiceChannel(Ulid channelId) => BasicRequest._new(
+        _handler,
+        '/channels/$channelId/join_call',
+        method: 'POST',
+      ).execute();
 
   @override
   Future<T> fetchUser<T extends User>(Ulid id) async {
@@ -97,10 +114,12 @@ class _HttpEndpoints extends _IHttpEndpoints {
   }
 
   @override
-  Future<void> editSelf(UserEditBuilder builder) =>
-      BasicRequest._new(_handler, '/users/@me',
-              method: 'PATCH', body: builder.build())
-          .execute();
+  Future<void> editSelf(UserEditBuilder builder) => BasicRequest._new(
+        _handler,
+        '/users/@me',
+        method: 'PATCH',
+        body: builder.build(),
+      ).execute();
 
   @override
   Uri fetchDefaultAvatar(Ulid id) =>
@@ -122,14 +141,17 @@ class _HttpEndpoints extends _IHttpEndpoints {
   @override
   Future<Iterable<TextChannel>> fetchDmChannels() async {
     final res = await BasicRequest._new(_handler, '/users/dms').execute();
-    return (res.body as List)
-        .map((e) => Channel._define(_client, e as RawApiMap) as TextChannel);
+    return (res.body as List).map(
+      (e) => Channel._define(_client, e as RawApiMap) as TextChannel,
+    );
   }
 
   @override
   Future<DmChannel> openDm(Ulid userId) async {
-    final res =
-        await BasicRequest._new(_handler, '/users/$userId/dm').execute();
+    final res = await BasicRequest._new(
+      _handler,
+      '/users/$userId/dm',
+    ).execute();
     return DmChannel._new(_client, res.body);
   }
 
@@ -145,15 +167,98 @@ class _HttpEndpoints extends _IHttpEndpoints {
 
   @override
   Future<void> setRoleChannelPermissions(
-          Ulid channelId, Ulid roleId, RoleChannelPermissionsBuilder builder) =>
-      BasicRequest._new(_handler, '/channels/$channelId/permissions/$roleId',
-              method: 'PUT', body: builder.build())
-          .execute();
+    Ulid channelId,
+    Ulid roleId,
+    RoleChannelPermissionsBuilder builder,
+  ) =>
+      BasicRequest._new(
+        _handler,
+        '/channels/$channelId/permissions/$roleId',
+        method: 'PUT',
+        body: builder.build(),
+      ).execute();
 
   @override
   Future<void> setDefaultChannelPermissions(
-          Ulid channelId, DefaultChannelPermissionsBuilder builder) =>
-      BasicRequest._new(_handler, '/channels/$channelId/permissions/default',
-              method: 'PUT', body: builder.build())
-          .execute();
+    Ulid channelId,
+    DefaultChannelPermissionsBuilder builder,
+  ) =>
+      BasicRequest._new(
+        _handler,
+        '/channels/$channelId/permissions/default',
+        method: 'PUT',
+        body: builder.build(),
+      ).execute();
+
+  @override
+  Future<void> deleteMessage(Ulid channelId, Ulid messageId) =>
+      BasicRequest._new(
+        _handler,
+        '/channels/$channelId/messages/$messageId',
+        method: 'DELETE',
+      ).execute();
+
+  @override
+  Future<void> editMessage(
+    Ulid channelId,
+    Ulid messageId,
+    MessageEditBuilder builder,
+  ) =>
+      BasicRequest._new(
+        _handler,
+        '/channels/$channelId/messages/$messageId',
+        method: 'PATCH',
+        body: builder.build(),
+      ).execute();
+
+  @override
+  Future<Message> fetchMessage(Ulid channelId, Ulid messageId) async {
+    final res = await BasicRequest._new(
+      _handler,
+      '/channels/$channelId/messages/$messageId',
+    ).execute();
+    return Message._new(_client, res.body);
+  }
+
+  @override
+  Future<MessageQueryData> fetchMessages(
+    Ulid channelId,
+    FetchMessagesQueryBuilder builder,
+  ) async {
+    final res = await BasicRequest._new(
+      _handler,
+      '/channels/$channelId/messages',
+      queryParameters: builder.build(),
+    ).execute();
+    return MessageQueryData._new(_client, res.body);
+  }
+
+  @override
+  Future<MessagePollData> pollMessageChanges(
+    Ulid channelId,
+    MessagePollBuilder builder,
+  ) async {
+    final res = await BasicRequest._new(
+      _handler,
+      '/channels/$channelId/messages/stale',
+      method: 'POST',
+      body: builder.build(),
+    ).execute();
+    print(res.body);
+    return MessagePollData._new(_client, channelId, res.body);
+  }
+
+  @override
+  Future<MessageQueryData> searchMessages(
+    Ulid channelId,
+    SearchMessagesQueryBuilder builder,
+  ) async {
+    final res = await BasicRequest._new(
+      _handler,
+      '/channels/$channelId/search',
+      method: 'POST',
+      body: builder.build(),
+    ).execute();
+    return MessageQueryData._new(_client, res.body);
+  }
 }

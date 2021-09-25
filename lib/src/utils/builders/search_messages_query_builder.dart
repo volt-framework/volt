@@ -8,22 +8,15 @@ class SearchMessagesQueryBuilder extends Builder<RawApiMap> {
     _query.write(query);
   }
 
-  MessageSearchSortDirection? _sortDirection;
-  set sortDirection(MessageSearchSortDirection? direction) =>
-      _sortDirection = direction;
-
-  bool? _includeUsers;
-  set includeUsers(bool? value) => _includeUsers = value;
-
-  Ulid? _before;
-  set before(Ulid? value) => _before == null ? value : null;
-
-  Ulid? _after;
-  set after(Ulid? value) => _after == null ? value : null;
+  MessageSearchSortDirection? sortDirection;
+  bool? includeUsers;
+  Ulid? before;
+  Ulid? after;
 
   int? _limit;
   set limit(int? value) =>
-      _limit = value == null ? max(min(value!, 100), 1) : null;
+      _limit = value == null ? null : max(min(value, 100), 1);
+  int? get limit => _limit;
 
   SearchMessagesQueryBuilder();
 
@@ -37,6 +30,7 @@ class SearchMessagesQueryBuilder extends Builder<RawApiMap> {
   }) {
     // on nearby before after and sort will be ignored
     return SearchMessagesQueryBuilder()
+      ..query = query
       ..includeUsers = includeUsers
       ..sortDirection = sortDirection
       ..before = before
@@ -49,10 +43,10 @@ class SearchMessagesQueryBuilder extends Builder<RawApiMap> {
     return {
       'query': _query.toString(),
       if (_limit != null) 'limit': _limit,
-      if (_before != null) 'before': _before.toString(),
-      if (_after != null) 'after': _after.toString(),
-      if (_sortDirection != null) 'sort': _sortDirection!.value,
-      if (_includeUsers != null) 'include_users': _includeUsers,
+      if (before != null) 'before': before.toString(),
+      if (after != null) 'after': after.toString(),
+      if (sortDirection != null) 'sort': sortDirection!.value,
+      if (includeUsers != null) 'include_users': includeUsers,
     };
   }
 }

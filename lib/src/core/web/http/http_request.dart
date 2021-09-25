@@ -9,13 +9,11 @@ class BasicRequest extends HttpRequest {
   final Uri _url;
   final String method;
   final RawApiMap? body;
+  final RawApiMap? queryParameters;
 
-  BasicRequest._new(
-    this._handler,
-    String endpoint, {
-    this.method = 'GET',
-    this.body,
-  }) : _url = Uri.https(_handler.baseUrl, endpoint);
+  BasicRequest._new(this._handler, String endpoint,
+      {this.method = 'GET', this.body, this.queryParameters})
+      : _url = Uri.https(_handler.baseUrl, endpoint, queryParameters);
 
   @override
   http.Request toRequest() {

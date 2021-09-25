@@ -1,5 +1,6 @@
 part of volt;
 
+// TODO: message edit date and replies list
 class Message extends UlidEntity {
   final IVolt client;
 
@@ -20,7 +21,7 @@ class Message extends UlidEntity {
   bool get isSystem => author.id.toString() == '0' * 26;
 
   Future<Message> reply(MessageBuilder builder, {bool shouldMention = false}) {
-    builder._replies.add(MessageReplyBuilder(id, shouldMention));
+    builder.replies.add(MessageReplyBuilder(id, shouldMention: shouldMention));
     return client.httpEndpoints.sendMessage(channel.id, builder);
   }
 

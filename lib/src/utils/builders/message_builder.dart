@@ -3,15 +3,11 @@ part of volt;
 // TODO: implement attachments
 class MessageBuilder extends Builder<RawApiMap> {
   final _content = StringBuffer();
-  List<MessageReplyBuilder> _replies = [];
+  List<MessageReplyBuilder> replies = [];
 
   set content(Object content) {
     _content.clear();
     _content.write(content);
-  }
-
-  set replies(List<MessageReplyBuilder> repls) {
-    _replies = repls;
   }
 
   MessageBuilder();
@@ -33,8 +29,7 @@ class MessageBuilder extends Builder<RawApiMap> {
     return {
       if (_content.isNotEmpty) 'content': _content.toString(),
       'nonce': Ulid.fromTimestamp(DateTime.now()).toString(),
-      if (_replies.isNotEmpty)
-        'replies': _replies.map((r) => r.build()).toList()
+      if (replies.isNotEmpty) 'replies': replies.map((r) => r.build()).toList()
     };
   }
 }
@@ -43,7 +38,7 @@ class MessageReplyBuilder extends Builder<RawApiMap> {
   Ulid messageId;
   bool shouldMention;
 
-  MessageReplyBuilder(this.messageId, this.shouldMention);
+  MessageReplyBuilder(this.messageId, {this.shouldMention = false});
 
   @override
   RawApiMap build() {

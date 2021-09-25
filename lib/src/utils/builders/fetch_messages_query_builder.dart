@@ -8,18 +8,14 @@ class FetchMessagesQueryBuilder extends Builder<RawApiMap> {
   set sortDirection(MessageSortDirection direction) =>
       _sortDirection = direction;
 
-  bool? _includeUsers;
-  set includeUsers(bool? value) => _includeUsers = value;
-
-  Ulid? _before;
-  set before(Ulid? value) => _before == null ? value : null;
-
-  Ulid? _after;
-  set after(Ulid? value) => _after == null ? value : null;
+  bool? includeUsers;
+  Ulid? before;
+  Ulid? after;
 
   int? _limit;
   set limit(int? value) =>
-      _limit = value == null ? max(min(value!, 100), 1) : null;
+      _limit = value == null ? null : max(min(value, 100), 1);
+  int? get limit => _limit;
 
   FetchMessagesQueryBuilder();
 
@@ -41,11 +37,11 @@ class FetchMessagesQueryBuilder extends Builder<RawApiMap> {
   RawApiMap build() {
     return {
       if (_limit != null && _nearby == null) 'limit': _limit,
-      if (_before != null && _nearby == null) 'before': _before.toString(),
-      if (_after != null && _nearby == null) 'after': _after.toString(),
+      if (before != null && _nearby == null) 'before': before.toString(),
+      if (after != null && _nearby == null) 'after': after.toString(),
       'sort': _sortDirection.value,
       if (_nearby != null) 'nearby': _nearby.toString(),
-      if (_includeUsers != null) 'include_users': _includeUsers,
+      if (includeUsers != null) 'include_users': includeUsers,
     };
   }
 }

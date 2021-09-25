@@ -36,9 +36,12 @@ part 'src/events/channel_stop_typing.dart';
 
 // Models
 part 'src/models/node_info.dart';
-part 'src/models/message.dart';
 part 'src/models/member.dart';
 part 'src/models/relationship.dart';
+part 'src/models/message/message.dart';
+part 'src/models/message/deleted_message.dart';
+part 'src/models/message/message_query_data.dart';
+part 'src/models/message/message_poll_data.dart';
 part 'src/models/role/role.dart';
 part 'src/models/role/role_permissions.dart';
 part 'src/models/category.dart';
@@ -93,6 +96,8 @@ part 'src/interfaces/enum.dart';
 
 // Utils
 part 'src/utils/builders/message_builder.dart';
+part 'src/utils/builders/message_edit_builder.dart';
+part 'src/utils/builders/message_poll_builder.dart';
 part 'src/utils/builders/fetch_messages_query_builder.dart';
 part 'src/utils/builders/search_messages_query_builder.dart';
 part 'src/utils/builders/user_permissions_builder.dart';

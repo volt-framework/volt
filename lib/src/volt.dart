@@ -1,6 +1,7 @@
 part of volt;
 
 typedef RawApiMap = Map<String, dynamic>;
+typedef RawApiList = List<dynamic>;
 
 abstract class IVolt {
   String get _token;
