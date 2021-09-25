@@ -49,6 +49,10 @@ class Group extends Channel implements TextChannel {
   Future<MessageQueryData> searchMessages(SearchMessagesQueryBuilder query) =>
       client.httpEndpoints.searchMessages(id, query);
 
+  /// Retrieve users who are part of this group.
+  Future<Iterable<User>> fetchMembers() =>
+      client.httpEndpoints.fetchGroupMembers(id);
+
   @override
   Future<void> startTyping() {
     if (client is Volt) {

@@ -42,6 +42,9 @@ abstract class _IHttpEndpoints {
   Future<MessageQueryData> searchMessages(
       Ulid channelId, SearchMessagesQueryBuilder builder);
 
+  // Groups
+  Future<Iterable<User>> fetchGroupMembers(Ulid channelId);
+
   // Voice
   Future<void> joinVoiceChannel(Ulid channelId);
 
@@ -259,5 +262,15 @@ class _HttpEndpoints extends _IHttpEndpoints {
       body: builder.build(),
     ).execute();
     return MessageQueryData._new(_client, res.body);
+  }
+
+  @override
+  Future<Iterable<User>> fetchGroupMembers(Ulid channelId) async {
+    final res = await BasicRequest._new(
+      _handler,
+      '/channels/$channelId/members',
+    ).execute();
+    return (res.body as RawApiList)
+        .map((e) => User._define(_client, e as RawApiMap));
   }
 }
