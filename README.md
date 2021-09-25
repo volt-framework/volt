@@ -23,7 +23,7 @@ void main() {
 
 ## Installation guide
 
-Since the library is not yet available on pub.dev, the dependency needs to be added by yourself.
+Since the library is not yet available on [pub.dev](https://pub.dev/), the dependency needs to be added by yourself.
 
 To install, edit your `pubspec.yaml`:
 
