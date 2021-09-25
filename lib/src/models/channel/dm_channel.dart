@@ -6,6 +6,10 @@ class DmChannel extends Channel implements TextChannel {
   // TODO: replace with cacheable message??
   final Ulid? lastMessageId;
 
+  /// Messages cache.
+  @override
+  final Cache<Ulid, Message> messages;
+
   DmChannel._new(IVolt client, RawApiMap raw)
       : isActive = raw['active'] as bool,
         recipients = [
@@ -15,6 +19,7 @@ class DmChannel extends Channel implements TextChannel {
         lastMessageId = raw['last_message_id'] == null
             ? null
             : Ulid(raw['last_message_id'] as String),
+        messages = Cache<Ulid, Message>(),
         super._new(client, raw);
 
   @override

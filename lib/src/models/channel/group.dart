@@ -11,6 +11,10 @@ class Group extends Channel implements TextChannel {
   final ChannelPermissions? permissions;
   final bool? isNsfw;
 
+  /// Messages cache.
+  @override
+  final Cache<Ulid, Message> messages;
+
   Group._new(IVolt client, RawApiMap raw)
       : recipients = [
           for (final userId in raw['recipients'] as List)
@@ -27,6 +31,7 @@ class Group extends Channel implements TextChannel {
             ? null
             : ChannelPermissions._new(raw['permissions']),
         isNsfw = raw['nsfw'] as bool?,
+        messages = Cache<Ulid, Message>(),
         super._new(client, raw);
 
   @override

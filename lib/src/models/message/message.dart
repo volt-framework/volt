@@ -43,5 +43,9 @@ class Message extends UlidEntity {
             for (final mention in raw['mentions'] as List<dynamic>)
               CacheableUser._new(client, Ulid(mention))
         ],
-        super(Ulid(raw['_id']));
+        super(Ulid(raw['_id'])) {
+    if (client.options.cacheOptions.cacheMessages) {
+      channel.getFromCache()?.messages[id] = this;
+    }
+  }
 }

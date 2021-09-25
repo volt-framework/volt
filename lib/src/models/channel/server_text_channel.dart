@@ -1,7 +1,13 @@
 part of volt;
 
 class ServerTextChannel extends ServerChannel implements TextChannel {
-  ServerTextChannel._new(IVolt client, RawApiMap raw) : super._new(client, raw);
+  ServerTextChannel._new(IVolt client, RawApiMap raw)
+      : messages = Cache<Ulid, Message>(),
+        super._new(client, raw);
+
+  /// Messages cache.
+  @override
+  final Cache<Ulid, Message> messages;
 
   @override
   Future<Message> fetchMessage(Ulid id) {
