@@ -2,8 +2,8 @@
 
 ![revolt-api](https://img.shields.io/npm/v/revolt-api?label=Revolt%20API)
 
-Volt is a wrapper over the Revolt API for easily writing bots using the Dart language.
-It is currently in active development so not all of the functionality has yet been implemented.
+Volt is a wrapper around Revolt API for creating bots for Dart language.
+It's currently in active development so not all of the functionality has yet been implemented.
 
 ## Example usage
 
