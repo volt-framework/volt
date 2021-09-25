@@ -1,12 +1,9 @@
 part of volt;
 
 abstract class BaseTextChannel implements Channel, Sendible, Mentionable {
-  // TODO: implement methods
   Future<Message> fetchMessage(Ulid id);
-
-  // TODO: replace dynamic with https://developers.revolt.chat/api/#tag/Messaging/paths/~1channels~1:channel~1messages~1search/post
-  Stream<dynamic> fetchMessages(FetchMessagesQueryBuilder query);
-  Stream<dynamic> findMessages(SearchMessagesQueryBuilder query);
+  Future<MessageQueryData> fetchMessages(FetchMessagesQueryBuilder query);
+  Future<MessageQueryData> searchMessages(SearchMessagesQueryBuilder query);
 
   Future<void> startTyping();
   Future<void> stopTyping();
