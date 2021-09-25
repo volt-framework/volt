@@ -1,6 +1,5 @@
 part of volt;
 
-// TODO: test it plsss
 class FetchMessagesQueryBuilder extends Builder<RawApiMap> {
   Ulid? _nearby;
 

@@ -1,6 +1,5 @@
 part of volt;
 
-// TODO: test it plsss
 class SearchMessagesQueryBuilder extends Builder<RawApiMap> {
   final StringBuffer _query = StringBuffer();
   set query(String query) {
