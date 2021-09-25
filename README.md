@@ -5,8 +5,6 @@
 Volt is a wrapper over the Revolt API for easily writing bots using the Dart language.
 It is currently in active development so not all of the functionality has yet been implemented.
 
----
-
 ## Example usage
 
 ```dart
@@ -17,11 +15,29 @@ void main() {
 
   bot.onMessageReceived.listen((event) {
     if (event.message.content == '!ping') {
-      await event.message.reply(MessageBuilder.content('Pong!'));
+      event.message.reply(MessageBuilder.content('Pong!'));
     }
   });
 }
+```
 
+## Installation guide
+
+Since the library is not yet available on pub.dev, the dependency needs to be added by yourself.
+
+To install, edit your `pubspec.yaml`:
+
+```yaml
+dependencies:
+    # ...your depedencies...
+    volt:
+        git: https://github.com/volt-framework/volt.git
+```
+
+Or just use the command line:
+
+```bash
+dart pub add volt --git-url=https://github.com/volt-framework/volt.git
 ```
 
 ## Contribution
