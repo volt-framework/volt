@@ -22,10 +22,6 @@ class ServerChannel extends Channel implements Mentionable {
   /// Whether is this channel is marked as Not Safe For Work.
   final bool? isNsfw;
 
-  // TODO: replace with cacheable message??
-  /// Last message.
-  final UlidEntity? lastMessage;
-
   /// Overrides default permissions.
   Future<void> overrideDefaultPermissions(
           DefaultChannelPermissionsBuilder builder) =>
@@ -54,9 +50,6 @@ class ServerChannel extends Channel implements Mentionable {
                   ),
                 )),
         isNsfw = raw['nsfw'] as bool?,
-        lastMessage = raw['last_message_id'] == null
-            ? null
-            : UlidEntity(Ulid(raw['last_message_id'])),
         super._new(client, raw);
 
   @override

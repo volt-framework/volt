@@ -35,11 +35,3 @@ class InviteInfo {
             : File._new(raw['user_avatar'] as RawApiMap),
         memberCount = raw['member_count'] as int;
 }
-
-/// Invite type.
-class InviteType extends Enum<String> {
-  static const server = InviteType._create('Server');
-
-  InviteType.from(String value) : super(value);
-  const InviteType._create(String value) : super(value);
-}

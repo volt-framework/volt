@@ -21,7 +21,7 @@ abstract class _IHttpEndpoints {
   Future<void> closeChannel(Ulid id);
 
   // Channel invites
-  Future<Invite> createInvite(Ulid channelId);
+  Future<PartialInvite> createInvite(Ulid channelId);
 
   // Channel permissions
   Future<void> setRoleChannelPermissions(
@@ -49,7 +49,11 @@ abstract class _IHttpEndpoints {
   Future<void> joinVoiceChannel(Ulid channelId);
 
   // Server Information
+  // TODO: implement edit server
   Future<Server> fetchServer(Ulid id);
+  Future<void> leaveServer(Ulid id);
+  Future<ServerChannel> createChannel(Ulid id, ServerChannelBuilder builder);
+  Future<Iterable<Invite>> fetchInvites(Ulid serverId);
 }
 
 class _HttpEndpoints extends _IHttpEndpoints {
@@ -159,13 +163,13 @@ class _HttpEndpoints extends _IHttpEndpoints {
   }
 
   @override
-  Future<Invite> createInvite(Ulid channelId) async {
+  Future<PartialInvite> createInvite(Ulid channelId) async {
     final res = await BasicRequest._new(
       _handler,
       '/channels/$channelId/invites',
       method: 'POST',
     ).execute();
-    return Invite._new(_client, res.body);
+    return PartialInvite._new(_client, res.body);
   }
 
   @override
@@ -273,4 +277,31 @@ class _HttpEndpoints extends _IHttpEndpoints {
     return (res.body as RawApiList)
         .map((e) => User._define(_client, e as RawApiMap));
   }
+
+  @override
+  Future<ServerChannel> createChannel(
+    Ulid id,
+    ServerChannelBuilder builder,
+  ) async {
+    final res = await BasicRequest._new(
+      _handler,
+      '/servers/$id/channels',
+      method: 'POST',
+      body: builder.build(),
+    ).execute();
+    return Channel._define(_client, res.body) as ServerChannel;
+  }
+
+  @override
+  Future<Iterable<Invite>> fetchInvites(Ulid serverId) async {
+    final res = await BasicRequest._new(
+      _handler,
+      '/servers/$serverId/invites',
+    ).execute();
+    return (res.body as RawApiList).map((e) => Invite._new(_client, e));
+  }
+
+  @override
+  Future<void> leaveServer(Ulid id) =>
+      BasicRequest._new(_handler, '/servers/$id', method: 'DELETE').execute();
 }

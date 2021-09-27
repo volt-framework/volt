@@ -1,8 +1,15 @@
 part of volt;
 
 class ServerTextChannel extends ServerChannel implements TextChannel {
+  /// Last message.
+  final CacheableMessage? lastMessage;
+
   ServerTextChannel._new(IVolt client, RawApiMap raw)
       : messages = Cache<Ulid, Message>(),
+        lastMessage = raw['last_message_id'] == null
+            ? null
+            : CacheableMessage._new(
+                client, Ulid(raw['_id']), Ulid(raw['last_message_id'])),
         super._new(client, raw);
 
   /// Messages cache.
@@ -42,7 +49,7 @@ class ServerTextChannel extends ServerChannel implements TextChannel {
     }
   }
 
-  Future<Invite> createInvite() => client.httpEndpoints.createInvite(id);
+  Future<PartialInvite> createInvite() => client.httpEndpoints.createInvite(id);
 
   @override
   Future<Message> sendMessage(MessageBuilder message) =>
