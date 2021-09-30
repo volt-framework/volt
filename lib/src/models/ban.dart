@@ -1,7 +1,10 @@
 part of volt;
 
 class Ban {
+  /// Reference to [BannedMember].
   BannedMember member;
+
+  /// Ban reason.
   String? reason;
 
   Ban._new(IVolt client, RawApiMap raw, RawApiMap userRaw)

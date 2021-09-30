@@ -38,6 +38,7 @@ part 'src/events/channel_stop_typing.dart';
 part 'src/models/node_info.dart';
 part 'src/models/member.dart';
 part 'src/models/relationship.dart';
+part 'src/models/ban.dart';
 part 'src/models/message/message.dart';
 part 'src/models/message/deleted_message.dart';
 part 'src/models/message/message_query_data.dart';
