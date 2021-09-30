@@ -1,6 +1,6 @@
 part of volt;
 
-class Member extends BaseMember {
+class Member extends BaseMember implements Convertable<MemberEditBuilder> {
   /// Custom member nickname.
   final String? nickname;
 
@@ -32,4 +32,7 @@ class Member extends BaseMember {
       server.getFromCache()?.members.add(id, this);
     }
   }
+
+  @override
+  MemberEditBuilder toBuilder() => MemberEditBuilder.from(this);
 }

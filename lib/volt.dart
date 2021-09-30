@@ -113,6 +113,7 @@ part 'src/utils/builders/user_edit_builder.dart';
 part 'src/utils/builders/role_channel_permissions_builder.dart';
 part 'src/utils/builders/default_channel_permissions_builder.dart';
 part 'src/utils/builders/server_channel_builder.dart';
+part 'src/utils/builders/member_edit_builder.dart';
 part 'src/utils/extensions/ulid_extension.dart';
 part 'src/utils/flags_utils.dart';
 part 'src/utils/_iter_utils.dart';

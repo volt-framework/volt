@@ -10,6 +10,10 @@ class BannedMember extends UlidEntity {
   /// [User] avatar.
   final File? avatar;
 
+  // TODO: implement unban
+  /// Unban member.
+  Future<void> unban() => throw UnimplementedError();
+
   BannedMember._new(IVolt client, String rawServerId, RawApiMap raw)
       : member = CacheableMember._new(
           client,
