@@ -82,6 +82,7 @@ part 'src/models/invite/invite.dart';
 part 'src/models/invite/partial_invite.dart';
 part 'src/models/invite/invite_info.dart';
 part 'src/models/user/user.dart';
+part 'src/models/user/banned_user.dart';
 part 'src/models/user/self_user.dart';
 part 'src/models/user/bot_user.dart';
 part 'src/models/user/user_profile.dart';
