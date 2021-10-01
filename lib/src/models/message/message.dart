@@ -8,7 +8,7 @@ class Message extends BaseMessage {
 
   final Ulid? nonce;
 
-  final Iterable<File> attachments;
+  final Iterable<Attachment> attachments;
 
   final Iterable<CacheableMember> mentions;
 
@@ -31,7 +31,7 @@ class Message extends BaseMessage {
         attachments = [
           if (raw['attachments'] != null)
             for (final attachment in raw['attachments'] as List<RawApiMap>)
-              File._new(attachment),
+              Attachment._new(attachment),
         ],
         mentions = [
           if (raw['mentions'] != null)

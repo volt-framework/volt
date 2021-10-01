@@ -6,13 +6,13 @@ class InviteInfo {
   final InviteType type;
   final CacheableServer server;
   final String serverName;
-  final File? serverIcon;
-  final File? serverBanner;
+  final Attachment? serverIcon;
+  final Attachment? serverBanner;
   final CacheableTextChannel<ServerTextChannel> channel;
   final String channelName;
   final String? channelDescription;
   final String userName;
-  final File? userAvatar;
+  final Attachment? userAvatar;
   final int memberCount;
 
   InviteInfo._new(IVolt client, RawApiMap raw)
@@ -21,10 +21,10 @@ class InviteInfo {
         serverName = raw['server_name'] as String,
         serverIcon = raw['server_icon'] == null
             ? null
-            : File._new(raw['server_icon'] as RawApiMap),
+            : Attachment._new(raw['server_icon'] as RawApiMap),
         serverBanner = raw['server_banner'] == null
             ? null
-            : File._new(raw['server_banner'] as RawApiMap),
+            : Attachment._new(raw['server_banner'] as RawApiMap),
         channel = CacheableTextChannel._new(
             client, Ulid(raw['channel_id'] as String)),
         channelName = raw['channel_name'] as String,
@@ -32,6 +32,6 @@ class InviteInfo {
         userName = raw['user_name'] as String,
         userAvatar = raw['user_avatar'] == null
             ? null
-            : File._new(raw['user_avatar'] as RawApiMap),
+            : Attachment._new(raw['user_avatar'] as RawApiMap),
         memberCount = raw['member_count'] as int;
 }

@@ -11,7 +11,7 @@ class ServerChannel extends Channel implements Mentionable {
   final String? description;
 
   /// Channel icon.
-  final File? icon;
+  final Attachment? icon;
 
   /// Default role permissions overrides.
   final ChannelPermissions? defaultPermissionsOverrides;
@@ -36,7 +36,9 @@ class ServerChannel extends Channel implements Mentionable {
       : server = CacheableServer._new(client, Ulid(raw['server'] as String)),
         name = raw['name'] as String,
         description = raw['description'] as String?,
-        icon = raw['icon'] == null ? null : File._new(raw['icon'] as RawApiMap),
+        icon = raw['icon'] == null
+            ? null
+            : Attachment._new(raw['icon'] as RawApiMap),
         defaultPermissionsOverrides = raw['default_permissions'] == null
             ? null
             : ChannelPermissions._new(raw['default_permissions'] as int),

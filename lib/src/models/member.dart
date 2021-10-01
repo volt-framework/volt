@@ -5,7 +5,7 @@ class Member extends BaseMember implements Convertable<MemberEditBuilder> {
   final String? nickname;
 
   /// Custom member avatar.
-  final File? avatar;
+  final Attachment? avatar;
 
   /// List of member roles.
   final Iterable<CacheableRole> roles;
@@ -14,7 +14,7 @@ class Member extends BaseMember implements Convertable<MemberEditBuilder> {
       : nickname = raw['nickname'] as String?,
         avatar = raw['avatar'] == null
             ? null
-            : File._new(raw['avatar'] as RawApiMap),
+            : Attachment._new(raw['avatar'] as RawApiMap),
         roles = [
           for (final role in raw['roles'] as List<dynamic>)
             CacheableRole._new(

@@ -7,7 +7,7 @@ class Group extends Channel implements TextChannel {
   final CacheableUser owner;
   final String? description;
   final Ulid? lastMessageId;
-  final File? icon;
+  final Attachment? icon;
   final ChannelPermissions? permissions;
   final bool? isNsfw;
 
@@ -26,7 +26,9 @@ class Group extends Channel implements TextChannel {
         lastMessageId = raw['last_message_id'] == null
             ? null
             : Ulid(raw['last_message_id'] as String),
-        icon = raw['icon'] == null ? null : File._new(raw['icon'] as RawApiMap),
+        icon = raw['icon'] == null
+            ? null
+            : Attachment._new(raw['icon'] as RawApiMap),
         permissions = raw['permissions'] == null
             ? null
             : ChannelPermissions._new(raw['permissions']),

@@ -11,7 +11,7 @@ class BannedMember extends UlidEntity {
   final String nickname;
 
   /// [User] avatar.
-  final File? avatar;
+  final Attachment? avatar;
 
   /// Unban member.
   Future<void> unban() =>
@@ -26,6 +26,6 @@ class BannedMember extends UlidEntity {
         nickname = raw['nickname'] as String,
         avatar = raw['avatar'] == null
             ? null
-            : File._new(raw['avatar'] as RawApiMap),
+            : Attachment._new(raw['avatar'] as RawApiMap),
         super(Ulid(raw['_id'] as String));
 }

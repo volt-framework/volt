@@ -36,10 +36,10 @@ class Server extends BaseServer {
   final ChannelPermissions? defaultChannelPermissions;
 
   /// Server icon.
-  final File? icon;
+  final Attachment? icon;
 
   /// Server banner.
-  final File? banner;
+  final Attachment? banner;
 
   /// Whether this server is marked as not safe for work.
   final bool? isNsfw;
@@ -72,9 +72,12 @@ class Server extends BaseServer {
             (raw['default_permissions'] as List<dynamic>)[0] as int),
         defaultChannelPermissions = ChannelPermissions._new(
             (raw['default_permissions'] as List<dynamic>)[1] as int),
-        icon = raw['icon'] == null ? null : File._new(raw['icon'] as RawApiMap),
-        banner =
-            raw['banner'] == null ? null : File._new(raw['icon'] as RawApiMap),
+        icon = raw['icon'] == null
+            ? null
+            : Attachment._new(raw['icon'] as RawApiMap),
+        banner = raw['banner'] == null
+            ? null
+            : Attachment._new(raw['icon'] as RawApiMap),
         isNsfw = raw['nsfw'] as bool?,
         flags = ServerFlags._new(raw['flags'] as int? ?? 0),
         super._new(client, Ulid(raw['_id'] as String)) {

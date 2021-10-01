@@ -2,7 +2,7 @@ part of volt;
 
 class User extends BaseUser {
   final String username;
-  final File? avatar;
+  final Attachment? avatar;
   // TODO: does it really need for bots?
   final Iterable<Relationship> relations;
   final UserBadges badges;
@@ -13,7 +13,7 @@ class User extends BaseUser {
       : username = raw['username'] as String,
         avatar = raw['avatar'] == null
             ? null
-            : File._new(raw['avatar'] as RawApiMap),
+            : Attachment._new(raw['avatar'] as RawApiMap),
         relations = [
           if (raw['relations'] != null)
             for (final rawRelation in raw['relations'] as List<RawApiMap>)

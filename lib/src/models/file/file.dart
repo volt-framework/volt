@@ -1,7 +1,7 @@
 part of volt;
 
 // TODO: rename to Attachment
-class File {
+class Attachment {
   final String id;
   final FileTag tag;
   final int size;
@@ -9,7 +9,7 @@ class File {
   final String contentsType;
   final Metadata metadata;
 
-  File._new(RawApiMap raw)
+  Attachment._new(RawApiMap raw)
       : id = raw['_id'] as String,
         tag = FileTag.from('tag'),
         size = raw['size'] as int,
