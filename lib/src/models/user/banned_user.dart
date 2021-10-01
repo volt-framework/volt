@@ -1,6 +1,9 @@
 part of volt;
 
 class BannedMember extends UlidEntity {
+  /// Reference to [IVolt].
+  final IVolt client;
+
   /// [Cacheable] reference to [Member].
   final CacheableMember member;
 
@@ -10,11 +13,11 @@ class BannedMember extends UlidEntity {
   /// [User] avatar.
   final File? avatar;
 
-  // TODO: implement unban
   /// Unban member.
-  Future<void> unban() => throw UnimplementedError();
+  Future<void> unban() =>
+      client.httpEndpoints.unbanMember(member.server.id, id);
 
-  BannedMember._new(IVolt client, String rawServerId, RawApiMap raw)
+  BannedMember._new(this.client, String rawServerId, RawApiMap raw)
       : member = CacheableMember._new(
           client,
           Ulid(rawServerId),

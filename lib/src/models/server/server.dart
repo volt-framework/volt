@@ -2,9 +2,6 @@ part of volt;
 
 /// Revolt server
 class Server extends BaseServer {
-  /// Reference to [Volt] instance
-  final IVolt client;
-
   /// Nonce value, used to prevent double requests to create objects.
   final String? nonce;
 
@@ -29,7 +26,8 @@ class Server extends BaseServer {
   /// System message channels.
   final SystemMessages systemMessages;
 
-  late final Iterable<Role> roles;
+  /// List of all server roles.
+  final Iterable<Role> roles;
 
   /// Default server permissions for all members.
   final ServerPermissions? defaultServerPermissions;
@@ -49,7 +47,7 @@ class Server extends BaseServer {
   /// Server flags.
   final ServerFlags flags;
 
-  Server._new(this.client, RawApiMap raw)
+  Server._new(IVolt client, RawApiMap raw)
       : nonce = raw['nonce'] as String?,
         name = raw['name'] as String,
         owner = CacheableMember._new(
@@ -79,7 +77,7 @@ class Server extends BaseServer {
             raw['banner'] == null ? null : File._new(raw['icon'] as RawApiMap),
         isNsfw = raw['nsfw'] as bool?,
         flags = ServerFlags._new(raw['flags'] as int? ?? 0),
-        super._new(Ulid(raw['_id'] as String)) {
+        super._new(client, Ulid(raw['_id'] as String)) {
     if (client.options.cacheOptions.cacheServers) {
       client.servers[id] = this;
     }
