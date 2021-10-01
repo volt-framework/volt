@@ -58,7 +58,7 @@ abstract class _IHttpEndpoints {
   // Server members
   Future<Member> fetchMember(Ulid serverId, Ulid memberId);
   Future<void> editMember(
-      Ulid serverId, Ulid memberId, UserEditBuilder builder);
+      Ulid serverId, Ulid memberId, MemberEditBuilder builder);
   Future<void> kickMember(Ulid serverId, Ulid memberId);
   Future<Iterable<Member>> fetchMembers(Ulid serverId);
   Future<void> banMember(Ulid serverId, Ulid memberId, BanBuilder builder);
@@ -341,7 +341,7 @@ class _HttpEndpoints extends _IHttpEndpoints {
   Future<void> editMember(
     Ulid serverId,
     Ulid memberId,
-    UserEditBuilder builder,
+    MemberEditBuilder builder,
   ) =>
       BasicRequest._new(
         _handler,
