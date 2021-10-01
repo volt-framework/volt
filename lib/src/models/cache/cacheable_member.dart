@@ -8,10 +8,7 @@ class CacheableMember extends BaseMember implements Cacheable<Ulid, Member> {
       : super._new(_client, serverId, id);
 
   @override
-  Future<Member> download() {
-    // TODO: implement download pls asap
-    throw UnimplementedError();
-  }
+  Future<Member> download() => _client.httpEndpoints.fetchMember(server.id, id);
 
   @override
   Member? getFromCache() => server.getFromCache()?.members[id];

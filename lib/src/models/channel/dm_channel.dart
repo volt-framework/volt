@@ -3,8 +3,7 @@ part of volt;
 class DmChannel extends Channel implements TextChannel {
   final bool isActive;
   final Iterable<CacheableUser> recipients;
-  // TODO: replace with cacheable message??
-  final Ulid? lastMessageId;
+  final CacheableMessage? lastMessage;
 
   /// Messages cache.
   @override
@@ -16,9 +15,13 @@ class DmChannel extends Channel implements TextChannel {
           for (final userId in raw['recipients'] as List<String>)
             CacheableUser._new(client, Ulid(userId))
         ],
-        lastMessageId = raw['last_message_id'] == null
+        lastMessage = raw['last_message_id'] == null
             ? null
-            : Ulid(raw['last_message_id'] as String),
+            : CacheableMessage._new(
+                client,
+                Ulid(raw['_id'] as String),
+                Ulid(raw['last_message_id'] as String),
+              ),
         messages = Cache<Ulid, Message>(),
         super._new(client, raw);
 

@@ -1,10 +1,14 @@
 part of volt;
 
 class DeletedMessage extends UlidEntity {
+  /// Reference to client.
   final IVolt client;
+
+  /// Reference to cacheable [TextChannel].
   final CacheableTextChannel channel;
 
   DeletedMessage._new(this.client, this.channel, Ulid id) : super(id);
-  // TODO: implement this pls
-  Message? get cached => null;
+
+  /// Cached message.
+  Message? get cached => channel.getFromCache()?.messages[id];
 }

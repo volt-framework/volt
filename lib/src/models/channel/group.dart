@@ -2,11 +2,10 @@ part of volt;
 
 class Group extends Channel implements TextChannel {
   final Iterable<CacheableUser> recipients;
-  // TODO: replace with cacheable message??
   final String name;
   final CacheableUser owner;
   final String? description;
-  final Ulid? lastMessageId;
+  final CacheableMessage? lastMessage;
   final Attachment? icon;
   final ChannelPermissions? permissions;
   final bool? isNsfw;
@@ -23,9 +22,13 @@ class Group extends Channel implements TextChannel {
         name = raw['name'] as String,
         owner = CacheableUser._new(client, Ulid(raw['owner'] as String)),
         description = raw['description'] as String?,
-        lastMessageId = raw['last_message_id'] == null
+        lastMessage = raw['last_message_id'] == null
             ? null
-            : Ulid(raw['last_message_id'] as String),
+            : CacheableMessage._new(
+                client,
+                Ulid(raw['_id'] as String),
+                Ulid(raw['last_message_id'] as String),
+              ),
         icon = raw['icon'] == null
             ? null
             : Attachment._new(raw['icon'] as RawApiMap),
