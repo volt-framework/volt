@@ -16,7 +16,7 @@ class CacheableChannel<T extends Channel> extends Cacheable<Ulid, T> {
 
 // TODO: add server and group channels which extends this
 class CacheableTextChannel<T extends TextChannel> extends Channel
-    implements Sendible, BaseTextChannel, Cacheable<Ulid, T> {
+    implements Sendible, BaseTextChannel, CacheableChannel<T> {
   @override
   final IVolt _client;
 

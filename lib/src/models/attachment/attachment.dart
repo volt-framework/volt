@@ -1,6 +1,5 @@
 part of volt;
 
-// TODO: rename to Attachment
 class Attachment {
   final String id;
   final FileTag tag;
