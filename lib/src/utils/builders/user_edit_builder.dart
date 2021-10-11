@@ -4,7 +4,7 @@ class UserEditBuilder extends Builder<RawApiMap> {
   UserStatusBuilder? status;
   UserProfileBuilder? profile;
   String? avatar;
-  RemoveField? remove;
+  UserRemoveField? remove;
 
   @override
   RawApiMap build() {
@@ -43,13 +43,13 @@ class UserStatusBuilder extends Builder<RawApiMap> {
   }
 }
 
-class RemoveField extends Enum<String> {
-  static const avatar = RemoveField._create("Avatar");
-  static const profileBackground = RemoveField._create("ProfileBackground");
-  static const profileContent = RemoveField._create("ProfileContent");
-  static const statusText = RemoveField._create("StatusText");
+class UserRemoveField extends Enum<String> {
+  static const avatar = UserRemoveField._create("Avatar");
+  static const profileBackground = UserRemoveField._create("ProfileBackground");
+  static const profileContent = UserRemoveField._create("ProfileContent");
+  static const statusText = UserRemoveField._create("StatusText");
 
-  const RemoveField._create(String value) : super(value);
+  const UserRemoveField._create(String value) : super(value);
 }
 
 class UserPresence extends Enum<String> {
