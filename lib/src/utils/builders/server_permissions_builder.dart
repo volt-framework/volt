@@ -16,17 +16,18 @@ class ServerPermissionsBuilder extends Builder<int> {
 
   ServerPermissionsBuilder();
 
-  ServerPermissionsBuilder.from(ServerPermissions permissions)
-      : viewServer = permissions.viewServer,
-        manageRoles = permissions.manageRoles,
-        manageChannels = permissions.manageChannels,
-        manageServer = permissions.manageServer,
-        kickMembers = permissions.kickMembers,
-        banMembers = permissions.banMembers,
-        changeNickname = permissions.changeNickname,
-        manageNicknames = permissions.manageNicknames,
-        changeAvatar = permissions.changeAvatar,
-        manageAvatars = permissions.manageAvatars;
+  factory ServerPermissionsBuilder.from(ServerPermissions permissions) =>
+      ServerPermissionsBuilder()
+        ..viewServer = permissions.viewServer
+        ..manageRoles = permissions.manageRoles
+        ..manageChannels = permissions.manageChannels
+        ..manageServer = permissions.manageServer
+        ..kickMembers = permissions.kickMembers
+        ..banMembers = permissions.banMembers
+        ..changeNickname = permissions.changeNickname
+        ..manageNicknames = permissions.manageNicknames
+        ..changeAvatar = permissions.changeAvatar
+        ..manageAvatars = permissions.manageAvatars;
 
   void _apply(bool? applies, int shift) =>
       _raw = FlagsUtils.apply(_raw, applies, shift);
