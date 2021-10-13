@@ -64,6 +64,14 @@ abstract class _IHttpEndpoints {
   Future<void> banMember(Ulid serverId, Ulid memberId, BanBuilder builder);
   Future<void> unbanMember(Ulid serverId, Ulid memberId);
   Future<Iterable<Ban>> fetchBans(Ulid serverId);
+
+  // Server permissions
+  Future<void> setRolePermissions(
+      Ulid serverId, Ulid roleId, PermissionsBuilder builder);
+  Future<void> setDefaultPermissions(Ulid serverId, PermissionsBuilder builder);
+  Future<Role> createRole(Ulid serverId, RoleBuilder builder);
+  Future<void> editRole(Ulid serverId, Ulid roleId, RoleEditBuilder builder);
+  Future<void> deleteRole(Ulid serverId, Ulid roleId);
 }
 
 class _HttpEndpoints extends _IHttpEndpoints {
@@ -404,5 +412,57 @@ class _HttpEndpoints extends _IHttpEndpoints {
         _handler,
         '/servers/$serverId/bans/$memberId',
         method: 'DELETE',
+      ).execute();
+
+  @override
+  Future<Role> createRole(Ulid serverId, RoleBuilder builder) async {
+    final res = await BasicRequest._new(
+      _handler,
+      '/servers/$serverId/roles',
+      method: 'POST',
+      body: builder.build(),
+    ).execute();
+    return Role._new(res.body);
+  }
+
+  @override
+  Future<void> deleteRole(Ulid serverId, Ulid roleId) => BasicRequest._new(
+        _handler,
+        '/servers/$serverId/roles/$roleId',
+        method: 'DELETE',
+      ).execute();
+
+  @override
+  Future<void> editRole(Ulid serverId, Ulid roleId, RoleEditBuilder builder) =>
+      BasicRequest._new(
+        _handler,
+        '/servers/$serverId/roles/$roleId',
+        method: 'PATCH',
+        body: builder.build(),
+      ).execute();
+
+  @override
+  Future<void> setDefaultPermissions(
+    Ulid serverId,
+    PermissionsBuilder builder,
+  ) =>
+      BasicRequest._new(
+        _handler,
+        '/servers/$serverId/permissions/default',
+        method: 'PUT',
+        body: builder.build(),
+      ).execute();
+
+  @override
+  Future<void> setRolePermissions(
+    Ulid serverId,
+    Ulid roleId,
+    PermissionsBuilder builder,
+  ) =>
+      BasicRequest._new(
+        _handler,
+        '/servers/$serverId/permissions/$roleId',
+        method: 'PUT',
+        body: builder.build(),
       ).execute();
 }
