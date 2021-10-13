@@ -17,7 +17,15 @@ class Role extends BaseRole {
   /// Role ranking. A role with a smaller number will have permissions over roles with larger numbers.
   int? rank;
 
-  Role._new(String rawId, RawApiMap raw)
+  Role._new(RawApiMap raw)
+      : name = raw['name'] as String,
+        permissions = RolePermissions._new(raw['permissions'] as List<dynamic>),
+        color = raw['colour'] as String?,
+        isHoist = raw['hoist'] as bool?,
+        rank = raw['rank'] as int?,
+        super._new(Ulid(raw['id']));
+
+  Role._raw(String rawId, RawApiMap raw)
       : name = raw['name'] as String,
         permissions = RolePermissions._new(raw['permissions'] as List<dynamic>),
         color = raw['colour'] as String?,

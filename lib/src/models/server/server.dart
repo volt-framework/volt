@@ -67,7 +67,7 @@ class Server extends BaseServer {
             client, raw['system_messages'] as RawApiMap? ?? {}),
         roles = ((raw['roles'] as RawApiMap? ?? {})
             .entries
-            .map((a) => Role._new(a.key, a.value as RawApiMap))),
+            .map((a) => Role._raw(a.key, a.value as RawApiMap))),
         defaultServerPermissions = ServerPermissions._new(
             (raw['default_permissions'] as List<dynamic>)[0] as int),
         defaultChannelPermissions = ChannelPermissions._new(
