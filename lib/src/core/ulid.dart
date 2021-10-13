@@ -2,7 +2,7 @@ part of volt;
 
 /// Represents ULID identification system used by Revolt.
 /// Refers to https://github.com/agilord/ulid/
-class Ulid {
+class Ulid implements Comparable<Ulid> {
   static final String _crockfordBase32 =
       '0123456789ABCDEFGHJKMNPQRSTVWXYZ'.toLowerCase();
   static final List<String> _base32 =
@@ -123,4 +123,7 @@ class Ulid {
       value = value >> 8;
     }
   }
+
+  @override
+  int compareTo(Ulid other) => toTimestamp().compareTo(other.toTimestamp());
 }
