@@ -116,6 +116,7 @@ part 'src/utils/builders/server_channel_builder.dart';
 part 'src/utils/builders/member_edit_builder.dart';
 part 'src/utils/builders/ban_builder.dart';
 part 'src/utils/builders/permissions_builder.dart';
+part 'src/utils/builders/role_builder.dart';
 part 'src/utils/builders/role_edit_builder.dart';
 part 'src/utils/extensions/ulid_extension.dart';
 part 'src/utils/flags_utils.dart';
