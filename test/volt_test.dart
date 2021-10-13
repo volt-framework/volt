@@ -26,4 +26,17 @@ void main() {
       expect(Ulid(ulidString).toString(), ulidString);
     });
   });
+
+  group('Test FlagsUtils', () {
+    test('FlagsUtils.isApplied() should return correct values', () {
+      expect(FlagsUtils.isApplied(0x10, 0x10), true);
+      expect(FlagsUtils.isApplied(0x10, 0x01), false);
+    });
+
+    test('FlagsUtils.apply() should have correct values', () {
+      expect(FlagsUtils.apply(0x000, true, 0x100), 0x100);
+      expect(FlagsUtils.apply(0x010, false, 0x010), 0x010);
+      expect(FlagsUtils.apply(0x001, null, 0x001), 0x001);
+    });
+  });
 }
