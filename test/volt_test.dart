@@ -9,7 +9,18 @@ const ulidString = '00000000000000000000000000';
 final ulidA = Ulid.fromTimestamp(DateTime.utc(ulidAYear));
 final ulidB = Ulid.fromTimestamp(DateTime.utc(ulidBYear));
 
-final client = VoltRest('dummy_token');
+final client = VoltRest(
+  'dummy_token',
+  options: ClientOptions(
+    cacheOptions: CacheOptions(
+      cacheServers: false,
+      cacheUsers: false,
+      cacheChannels: false,
+      cacheMembers: false,
+      cacheMessages: false,
+    ),
+  ),
+);
 
 void main() {
   group('Test ULIDs', () {
